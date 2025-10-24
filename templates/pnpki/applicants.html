@@ -1,0 +1,453 @@
+    {% extends 'base/lte_base.html' %}
+    {% load static %}
+
+    {% block title %}Applicants{% endblock %}
+    {% block content-header %}Applicants{% endblock %}
+    {% block breadcrumb %}Applicants{% endblock %}
+    
+    {% block content %}
+
+<div class="col-md-12 post" style="font-family: 'Trebuchet MS'; font-size: 10px;">
+                  <div class="col-xs-15 col-md-15 text-center">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob new" value="0" data-width="90" data-height="90" data-fgcolor="#3c8dbc" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color:rgb(0, 166, 90); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">NEW</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob rts" value="0" data-width="90" data-height="90" data-fgcolor="#ffa500" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(206, 136, 6); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">RTS</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob dis" value="0" data-width="90" data-height="90" data-fgcolor="#f56954" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">DISAPPROVED</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob app" value="0" data-width="90" data-height="90" data-fgcolor="#00a65a" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">APPROVED</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob sub" value="0" data-width="90" data-height="90" data-fgcolor="#00c0ef" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label c">SUB TO DICT </div>
+                  </div>
+                  <!-- ./col -->
+</div>
+
+
+<div class="col-lg-12">
+  <div class="card">
+              <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- The title on the left -->
+        <div>
+          <h3 class="card-title mb-0" style="font-size: 20px;">
+            <i class="fa fa-list"></i> Applicants List
+          </h3>
+        </div>
+        <!-- The search/filter elements on the right -->
+        <div class="row input-group col-lg-7 col-md-9 col-xs-9">
+          <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateFrom" value="{% now 'Y-m-d' %}" type="search" placeholder="Date From" title="Date From">
+          <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateEnds" value="{% now 'Y-m-d' %}" type="search" placeholder="Date End" title="Date End">
+          <select class="form-control form-control-sm" id="StatusID" name="StatusID">
+            <option value="">---</option>
+            {% for S in statusname %}
+            <option value="{{ S.id }}"> {{ S.Description }}</option>
+            {% endfor %}
+          </select>
+          <div class="input-group-append">
+            <a href="#" class="btn btn-sm btn-default btn-flat" onclick="GetApplicants()"><i class="fa fa-search"></i> Search</a>
+            <a href="#" class="btn btn-sm btn-primary btn-flat btn-report"><i class="fa fa-download"></i> Download PDF</a>
+          </div>
+        </div>
+      </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0 table-responsive">
+                <table id="TblApplicantList" class="v-align-table table table-striped table-sm table-container table-hover" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                  <thead>
+                    <tr class="c">
+                      <th style="width: 10px;">#</th>
+                      <th style="width: 100px;">APPLICATION&nbsp;ID</th>
+                      <th>APPLICATION&nbsp;DATE</th>
+                      <th>FIRST&nbsp;NAME</th>
+                      <th>LAST&nbsp;NAME</th>
+                      <th>EMAIL&nbsp;ADDRESS</th>
+                      <th>OR/AGENCY/COMPANY</th>
+                      <th>ORG UNIT/DEP/DIVISION</th>
+                      <th>STATUS</th>
+                      <th style="padding-left: 40px;" class="r">ACTION</th>
+                    </tr>
+                  </thead>
+                  <tbody id="LoadAppList">
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>  
+</div>
+<style>
+.pull-right-manual {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}  
+</style>          
+<script>
+  $(function(){ $('.input-date').daterangepicker({ showDropdowns:true, singleDatePicker: true, format: 'YYYY-MM-DD' }); });
+  $(function(){ GetApplicants(); $('.knob').knob(); });
+//========================================================================================================================================================
+  function GetApplicants(){
+        
+    $.ajax({
+      url: "{% url 'applicationlist' %}",
+      type: "post",
+      data:{ SearchDateFrom : $("#SearchDateFrom").val(), SearchDateEnds : $("#SearchDateEnds").val(), StatusID:$("#StatusID").val() },
+      dataType: "json",
+      beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+      success: function(S){  
+        //$("#LoadAppList").html(S.rtplist);
+        GetApplicantsList(S);
+        $('.new').val(S.count_per_status.new).trigger('change');
+        $('.rts').val(S.count_per_status.rts).trigger('change');
+        $('.dis').val(S.count_per_status.dis).trigger('change');
+        $('.app').val(S.count_per_status.app).trigger('change');
+        $('.sub').val(S.count_per_status.sub).trigger('change');
+      },
+      error: function(xhr, status, error){ 
+        console.error('AJAX Error:', status, error);
+        console.log('Response Text:', xhr.responseText);
+        Notiflix.Notify.Failure("Error processing...");
+        let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+        //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+      }
+    });
+  }
+
+//====================================================================================================================
+  function GetApplicantsList(S){
+    // Clear the table body first
+    $("#LoadAppList").empty();
+
+    // Check if the rtplist array is empty or not defined
+    if (S.rtplist && S.rtplist.length > 0) {
+        // Loop through the list of reports in the JSON response
+        $.each(S.rtplist, function (index, item) {
+            // Determine the disabled class conditionally
+            const disabledClass = item.StatusID === 5 ? ' disabled' : '';
+
+            // Build the table row dynamically using the data
+            var newRow = '<tr id="trow'+ item.id +'" class="c">' +
+                '<td class="index l">' + (index + 1) + '.</td>' +
+                '<td>' + item.ApplicationID + '</td>' +
+                '<td>' + (item.ApplicationDate ? new Date(item.ApplicationDate).toISOString().slice(0, 10) : '') + '</td>' +
+                '<td>' + item.FirstName +'</td>' +
+                '<td>' + item.LastName +'</td>' +
+                '<td>' + item.EmailAddress +'</td>' +
+                '<td>' + item.OrgAgencyCompany +'</td>' +
+                '<td>' + item.OrgUnitDeptDiv +'</td>' +
+                '<td class="'+ item.StatusID__ClassName +' r">'+ item.StatusID__Description.toUpperCase() +'</td>' +
+                '<td>' + //class="project-actions text-right"
+                '<div class="pull-right">' +
+                '  <a class="btn btn-xs btn-info btn-flat btn-view ' + disabledClass + '" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ApplicationID +'"><i class="fa fa-eye"></i></a>' +
+                '  <a class="btn btn-xs btn-success btn-flat btn-createdit ' + disabledClass + '" href="/pnpki/' + item.id + '/certificate?appid=' + item.ApplicationID +'" target="_blank" rel="noopener"><i class="fas fa-bars"></i></a>' +
+                // Modified delete button to include the conditional class
+                '  <a class="btn btn-xs btn-dark btn-flat btn-delete' + disabledClass + '" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ApplicationID +'"><i class="fa fa-trash"></i></a>' +
+                '</div>' +
+                '</td>' +
+                '</tr>';
+                
+            // Append the new row to the table body
+            $("#LoadAppList").append(newRow);
+        });
+    } else {
+        // Append the "no record found" row to the table body
+        var noDataRow = '<tr><td colspan="10" class="c i"><p>No record found.</p></td></tr>';
+        $("#LoadAppList").append(noDataRow);
+    }
+
+  }  
+//========================================================================================================================================================
+  $(document).on('click','.btn-submit',function(){ 
+            /*'ExtensionName'*/
+            var form = $('#ApplicationForm')[0];
+            var formData = new FormData(form);
+            var TxtBox = ['LastName','FirstName','MiddleName','GenderID','NationalityID','BirthDate','TaxIDNumber','OrgAgencyCompany','OrgUnitDeptDiv','HouseUnitNumber','Street','ProvinceState','MunicipalityCity','Barangay','ZipCode','MobileNumber','EmailAddress'];//,'PassportPhoto','RequiredID','AttachedFiles','SignatureImage'
+            //var TxtBox = ['PassportPhoto','AttachedFiles','SignatureImage'];
+            if(TxtBox.some(f => isEmptyLte(document.forms.ApplicationForm[f], f, f))) return false;
+            if(isValidEmail(document.forms.ApplicationForm.EmailAddress,"EmailAddress","EmailAddress")) return false;
+            //if(isEmptyCheck(document.forms.ApplicationForm.TermServiceID,"TermServiceID","TermServiceID")) return false;
+            $(".btn-submit .fa").addClass('fa-spinner fa-spin');
+            $(".btn-submit .fa").removeClass('fa-paper-plane');
+            $(".btn-submit").addClass('disabled');
+                $.ajax({
+                    url: "{% url 'applicationupdate' %}",
+                    type: "post",
+                    data: formData,//$("#ApplicationForm").serialize(),
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    processData: false, 
+                    contentType: false,
+                    beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+                    success: function(S){ 
+                        if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); }else{ Notiflix.Notify.Success(S.response_advise); }
+                        GetApplicants();
+                        $(".btn-submit .fa").removeClass('fa-spinner fa-spin');
+                        $(".btn-submit .fa").addClass('fa-paper-plane');
+                        $(".btn-submit").removeClass('disabled');
+                    },
+                    error: function(xhr, status, error){ 
+                        Notiflix.Loading.Standard('Error processing...');
+                        console.error('AJAX Error:', status, error);
+                        console.log('Response Text:', xhr.responseText);
+                        Notiflix.Notify.Failure("Error processing...");
+                        let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : '', TransID:'', tblname:"dopnpki.Application", UriSegmentLoc:"applicationupdate", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });                        
+                    }
+                });
+  }); 
+//========================================================================================================================================================
+  $(document).on('click','.btn-delete',function(){ 
+    const VItemID = this.id;
+    const VTransID = this.getAttribute("trans-id");
+
+    Notiflix.Confirm.Show('Remove Confirm', 'Want to delete '+VTransID+'?', 'Yes', 'No', 
+      function(){ 
+        // Yes button callback alert('Thank you.'); 
+        $.ajax({
+          url: "{% url 'data_remove' %}",
+          type: "post",
+          data:{ ItemID : VItemID, TransID:VTransID },
+          dataType: "json",
+          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+          success: function(S){  GetApplicants();//S.applicants
+            if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); 
+            }else{ Notiflix.Notify.Success(S.response_advise); $("#trow"+VItemID).remove(); $('td.index').html(function(i){ return i + 1; }); }
+          },
+          //error:function(){ Notiflix.Notify.Failure('Removing Failed..'); }   
+          error: function(xhr, status, error){ 
+            console.error('AJAX Error:', status, error);
+            console.log('Response Text:', xhr.responseText);
+            Notiflix.Notify.Failure("Error processing...");
+            let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : VItemID, TransID:VTransID, tblname:"dopnpki.Application", UriSegmentLoc:"pnpki/data_remove", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });
+          }
+        });         
+      },
+      function(){ /* No button callback alert('If you say so...'); */ }
+	  );      
+  });
+//========================================================================================================================================================
+  $(document).on('click','.btn-approve',function(){ 
+    const VItemID = this.id;
+    const VTransID = this.getAttribute("trans-id");
+    const modalElement = document.getElementById('myModal');
+
+    Notiflix.Confirm.Show('Approval Confirmation', 'Want to approve '+VTransID+'?', 'Yes', 'No', 
+	    function(){ 
+	        // Yes button callback alert('Thank you.'); 
+	      $.ajax({
+			    url: "{% url 'data_approve' %}",
+			    type: "post",
+			    data:{ ItemID : VItemID, TransID:VTransID, SearchDateFrom : $("#SearchDateFrom").val(), SearchDateEnds : $("#SearchDateEnds").val() },
+			    dataType: "json",
+          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+			    success: function(S){  //S.applicants
+            if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); }else{ Notiflix.Notify.Success(S.response_advise); 
+              GetApplicants();
+              $(".modal-save .fa").removeClass('fa-spinner fa-spin');
+              $(".modal-save .fa").addClass('fa-paper-plane');
+              $(".modal-save").removeClass('disabled');				
+			        $('#myModal').modal('toggle');
+              modalElement.setAttribute('aria-hidden', 'true');
+            }
+			    },
+			    error: function(xhr, status, error){ 
+            console.error('AJAX Error:', status, error);
+            console.log('Response Text:', xhr.responseText);
+            Notiflix.Notify.Failure("Error processing...");
+            let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : VItemID, TransID:VTransID, tblname:"dopnpki.Application", UriSegmentLoc:"pnpki/data_approve", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });
+          }
+		    });
+		                        
+		    },
+		    function(){ /* No button callback alert('If you say so...'); */ }
+	  );
+           
+  });
+//========================================================================================================================================================
+        $(document).on('click','.btn-view',function(){ 
+          const VItemID = this.id;
+          const VTransID = this.getAttribute("trans-id");
+          const modalElement = document.getElementById('myModal');
+
+          $.ajax({
+			      url: "{% url 'applicantview' %}",
+			      type: "post",
+			      data:{ ItemID : VItemID, TransID:VTransID, csrfmiddlewaretoken:getCookie('csrftoken') },
+			      //dataType: "json",
+            //beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+			      success: function(content){  //S.applicants
+              document.getElementById('myModal').innerHTML=content;
+              $('#myModal').modal({ backdrop:'static', keyboard:false },'show');
+              $('#myModal').attr('class', 'modal fade bs-example-modal-lg').attr('aria-labelledby','myModalLabel');
+              $('.modal-dialog').attr('class','modal-dialog modal-lg');
+              // When the modal is shown
+              modalElement.removeAttribute('aria-hidden');
+
+            },
+			      error: function(xhr, status, error){ 
+              console.error('AJAX Error:', status, error);
+              console.log('Response Text:', xhr.responseText);
+              Notiflix.Notify.Failure("Error processing...");
+              let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+              //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+            }
+		      });
+
+        }); 
+ //========================================================================================================================================================   
+    $(document).on('click','.btn-report',function(){ 
+          $.ajax({
+			      url: "{% url 'applicationreport' %}",
+			      type: "post",
+			      data:{ SearchDateFrom : $("#SearchDateFrom").val(), SearchDateEnds : $("#SearchDateEnds").val(), StatusID : $("#StatusID").val(), csrfmiddlewaretoken:getCookie('csrftoken') },
+			      dataType: "json",
+            //beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+			      success: function(S){  //S.applicants
+              window.open(S.redirect_url,'_blank');
+            },
+			      error: function(xhr, status, error){ 
+              console.error('AJAX Error:', status, error);
+              console.log('Response Text:', xhr.responseText);
+              Notiflix.Notify.Failure("Error processing...");
+              let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+              //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+            }
+		      });      
+      //url = "{% url 'applicationreport' %}?token="+getCookie('csrftoken')+"&datefrom="+$("#SearchDateFrom").val();
+      //window.open(url,'_blank');
+    });
+//========================================================================================================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('HSearchInput');
+        const table = document.getElementById('TblApplicantList');
+        const rows = table.getElementsByTagName('tr');
+
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+
+            for (let i = 1; i < rows.length; i++) { // Start from 1 to skip header row
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    let cellText = cells[j].textContent.toLowerCase();
+                    if (cellText.includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            }
+        });
+    }); 
+//========================================================================================================================================================
+  function GetMunCity(){ 
+    var provinceId = $('#ProvinceState').val();
+    $.ajax({url: "{% url 'ajax_load_cities' %}", data: {'province_id': provinceId},
+      success: function (data) {
+        $("#MunicipalityCity").html('<option value="">---</option>');
+        $.each(data, function (index, item) {
+          $("#MunicipalityCity").append('<option value="' + item.citymunCode + '">' + item.citymunDesc + '</option>');
+        });
+      }
+    });
+  }
+//========================================================================================================================================================
+  function GetBarangay(){ 
+    var cityId = $('#MunicipalityCity').val();
+      $.ajax({url: "{% url 'ajax_load_barangays' %}", data: { 'city_id': cityId},
+        success: function (data) {
+          $("#Barangay").html('<option value="">---</option>');
+          $.each(data, function (index, item) {
+          $("#Barangay").append('<option value="' + item.brgyCode + '">' + item.brgyDesc.toUpperCase() + '</option>');
+        });
+      }
+    });
+  }
+//========================================================================================================================================================
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== ''){
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) { cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); break; }
+      }
+    }
+    return cookieValue;
+  }
+//====================================================================================================================
+	function isEmptyCheck(frmField,fldId,fldName) {
+        //document.getElementById(fldId).required = true;
+        if(document.getElementById(fldId).checked==false){
+            document.getElementById(fldId).autofocus;
+            Notiflix.Notify.Failure('Required.. Data Privacy (Consent/Agreement).');
+            $("#Grp"+fldId).addClass('has-error');
+            $(".fa-square-o").addClass('has-error');
+            //frmField.focus(); 
+            return true; 
+        }else{
+            $("#Grp"+fldId).removeClass('has-error');
+            $(".fa-square-o").removeClass('has-error');
+        }
+        return false;
+    }
+//====================================================================================================================
+	function isValidEmail(frmField,fldId,fldName) {
+
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let EmailAddress = $('#'+fldId).val().trim();
+        let emailValid = re.test(EmailAddress);
+        
+        if(!emailValid && EmailAddress !== ''){ 
+            $("#Grp"+fldId).addClass('has-error'); 
+            Notiflix.Notify.Failure('Valid Email Address id required..'); 
+            document.getElementById(fldId).autofocus;
+            return true; 
+        }else{ $('#GrpEmailAddress').removeClass('has-error'); }
+        return false;
+    }
+//====================================================================================================================  
+</script>          
+    {% endblock %}

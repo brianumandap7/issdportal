@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="{% static 'basetemp/favicondotr32.png' %}"/>
+  <title>ISSD Portal</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'basetemp/login_css.css' %}">
+
+  <style>
+    /* --- Modal Styles --- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 150px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      animation: slideIn 0.4s ease;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 10px;
+      color: #004c91;
+      font-weight: 700;
+    }
+
+    .modal-content p {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+
+    <!-- Sign Up -->
+<div class="form-container sign-up-container">
+  <form action="#">
+    <div class="text-center p-4">
+      <!-- CyberSecurity Section -->
+       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+           alt="CyberSecurity Icon" width="30" height="30" class="my-3">
+      <strong class="mt-3">CyberSecurity Response Management System</strong>
+      
+      <p>
+        A centralized platform for ticketing and monitoring cybersecurity incidents,
+        enabling efficient tracking, response, and reporting to strengthen the
+        security posture of your organization.
+      </p>
+
+      <hr class="my-4">
+
+      <!-- PNPKI Section -->
+       <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" 
+           alt="PNPKI Icon" width="30" height="30" class="my-3">
+      <strong class="mt-3">PNPKI Application System</strong>
+      
+      <p>
+        A secure gateway for managing PNPKI digital certificates, ensuring trusted transactions and authentication.
+      </p>
+    </div>
+  </form>
+</div>
+
+
+    <!-- Sign In -->
+    <div class="form-container sign-in-container">
+      <form method="POST" class="signinform">
+        {% csrf_token %}
+        <img src="{% static 'basetemp/newlogo.png' %}" width="100" height="100" >
+        <h1>Sign In</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your account</span>
+        {{ form.username }}
+        {{ form.password }}
+        <a href="#">Forgot your password?</a>
+        <button class="si" type="submit">Sign In</button>
+      </form>
+    </div>
+
+    <!-- Overlay Panels -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <div class="mb-4 text-start">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828951.png" alt="ISSP Icon" width="40" height="40" class="me-2">
+            <strong>ISSP (Information Systems Strategic Plan)</strong>
+            <p class="small mt-2">
+              A strategic tool for planning, implementing, and monitoring IT projects and compliance initiatives across the organization.
+            </p>
+          </div>
+
+          <div class="text-start">
+            <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" alt="IPAR Icon" width="40" height="40" class="me-2">
+            <strong>IPAR (Individual Performance Accomplishment Report)</strong>
+            <p class="small mt-2">
+              A performance management module for documenting, tracking, and assessing individual accomplishments and targets.
+            </p>
+          </div>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+
+        <div class="overlay-panel overlay-right">
+          <h2>Welcome to ISSD Portal!</h2>
+          <p>The centralized gateway for CyberSecurity updates, ISSP compliance, SPMS tracking, and PNPKI application—designed to streamline information management, strengthen security, and support efficient decision-making across the organization.</p>
+          <button class="ghost" id="signUp">Learn More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 All rights reserved — Information Systems and Security Division <strong>(ISSD) Portal</strong></p>
+  </footer>
+
+  <!-- Error Modal -->
+  <div id="errorModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login Failed</h2>
+      <p>Incorrect username or password. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- start of js -->
+  <script src="{% static 'basetemp/login_js.js' %}"></script>
+
+  <!-- Modal JS Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      {% if form.errors %}
+        const modal = document.getElementById("errorModal");
+        const span = document.getElementsByClassName("close")[0];
+        
+        // Show modal if login failed
+        modal.style.display = "block";
+        
+        // Close when X clicked
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // Close when clicking outside modal
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+      {% endif %}
+    });
+  </script>
+  <!-- end of js -->
+</body>
+</html>

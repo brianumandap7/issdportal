@@ -1,0 +1,99 @@
+{% load static %}
+<div class="modal fade show" id="modal-default" style="display: block;" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Employee Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                <small class="darkred">{{ form.instance.SystemID }}</small> <span>×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: auto; ">
+    <form id="EmlployeeForm" name="EmlployeeForm" method="post" enctype="multipart/form-data" autocomplete="off" class="panel-body wrapper-lg">
+        {% csrf_token %}
+<div class="row">
+    <!--div class="form-group col-md-3 col-xs-4" id="GrpEmployeeNumber"> 
+        <label for="EmployeeNumber" class="control-label">Employee Number</label>
+        <input type="text" id="EmployeeNumber" name="EmployeeNumber" placeholder="Employee Number" value="{{ form.instance.EmployeeNumber }}" class="form-control input-sm c">
+	</div-->
+    <div class="form-group col-md-3 col-xs-4" id="GrpFirstName"> 
+        <label for="FirstName" class="control-label">First Name</label>
+        <input type="text" id="FirstName" name="FirstName" placeholder="First Name" value="{{ form.instance.FirstName }}" class="form-control input-sm">
+	</div>
+
+    <div class="form-group col-md-3 col-xs-4" id="GrpLastName"> 
+        <label for="LastName" class="control-label">Last Name</label>
+        <input type="text" id="LastName" name="LastName" placeholder="Last Name" value="{{ form.instance.LastName }}" class="form-control input-sm">
+	</div>
+    <div class="form-group col-md-3 col-xs-4" id="GrpMiddleName"> 
+        <label for="MiddleName" class="control-label">Middle Name</label>
+        <input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name" value="{{ form.instance.MiddleName }}" class="form-control input-sm">
+	</div>
+    <div class="form-group col-md-3 col-xs-4" id="GrpExtensionName"> 
+        <label for="ExtensionName" class="control-label">Extension Name</label>
+        <input type="text" id="ExtensionName" name="ExtensionName" placeholder="Extension Name" value="{{ form.instance.ExtensionName }}" class="form-control input-sm">
+	</div>
+
+    <div class="form-group col-md-6 col-xs-12" id="GrpDivisionID"> 
+        <label for="DivisionID" class="control-label">Office/Division</label>
+        <select id="DivisionID" name="DivisionID" class="form-control input-sm">
+            <option value="">--</option>
+            {% for id, DivisionName in utils.OfficeDiv.field.choices %}
+                <option value="{{ id }}" {% if id == form.instance.DivisionID %}selected{% endif %}>{{ DivisionName|upper }}</option>
+            {% endfor %}
+        </select>
+	</div>
+
+    <div class="form-group col-md-6 col-xs-12" id="GrpUnitSectionID"> 
+        <label for="UnitSectionID" class="control-label">Division/Unit/Section</label>
+        <select id="UnitSectionID" name="UnitSectionID" class="form-control input-sm">
+            <option value="">--</option>
+            {% for id, SectionUnitName in utils.SectnUnit.field.choices %}
+                <option value="{{ id }}" {% if id == form.instance.UnitSectionID %}selected{% endif %}>{{ SectionUnitName|upper }}</option>
+            {% endfor %}
+        </select>
+	</div>
+    <div class="form-group col-md-6 col-xs-12" id="GrpPositionID"> 
+        <label for="PositionID" class="control-label">Position/Designation</label>
+        <select id="PositionID" name="PositionID" class="form-control input-sm">
+            <option value="">--</option>
+            {% for id, PositionName in utils.Designation.field.choices %}
+                <option value="{{ id }}" {% if id == form.instance.PositionID %}selected{% endif %}>{{ PositionName|upper }}</option>
+            {% endfor %}
+        </select>
+	</div>
+
+    <div class="form-group col-md-6 col-xs-12" id="GrpSalaryGradeID"> 
+        <label for="SalaryGradeID" class="control-label">Salary Grade</label>
+        <select id="SalaryGradeID" name="SalaryGradeID" class="form-control input-sm">
+            <option value="">--</option>
+            {% for id, SalaryGrade in utils.SalaryGrade.field.choices %}
+                <option value="{{ id }}" {% if id == form.instance.SalaryGradeID %}selected{% endif %}>{{ SalaryGrade|upper }}</option>
+            {% endfor %}
+        </select>
+	</div>
+    
+    
+    
+    <div class="form-group col-lg-12" id="GrpReportRemarks"> 
+        <label for="ReportRemarks" class="control-label"><b>Remarks</b></label>
+        <textarea id="ReportRemarks" name="ReportRemarks" placeholder="Remarks" class="form-control textarea-md">{{ form.instance.ReportRemarks }}</textarea>
+	</div>
+</div>
+    <input type="hidden" id="id" name="id" class="form-control input-sm" value="{{ form.instance.id }}">
+    <input type="hidden" id="SystemID" name="SystemID" class="form-control input-sm" value="{{ form.instance.SystemID }}">
+    </form>
+            </div>
+            <div class="modal-footer"><!--justify-content-between-->  
+              
+              <button type="button" class="btn btn-warning btn-md btn-flat btn-saveupdate" id="{{ form.instance.id }}" trans-id="{{ form.instance.SystemID }}"><i class="fa fa-paper-plane"></i> Save</button>
+              <button type="button" class="btn btn-default btn-md btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
+<style>
+    .control-label{margin-bottom: 0px;}
+</style>

@@ -1,0 +1,54 @@
+{% load static %}
+<div class="modal fade show" id="modal-default" style="display: block;" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create Reports</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                <small class="darkred">{{ form.instance.ReportID }}</small> <span>×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: auto; ">
+    <form id="ReportsForm" name="ReportsForm" method="post" enctype="multipart/form-data" autocomplete="off" class="panel-body wrapper-lg">
+        {% csrf_token %}
+<div class="row">
+    <div class="form-group col-md-4 col-xs-4" id="GrpBatchNumber"> 
+            <label for="BatchNumber" class="control-label"><b>Month</b></label>
+            <select id="BatchNumber" name="BatchNumber" class="form-control input-md option-month">
+                <option value="">-- Select Month --</option>
+                {% for month_number, month_name in months %}
+                    <option value="{{ month_number }}" {% if month_number == form.instance.BatchNumber %}selected{% endif %}>{{ month_name }}</option>
+                {% endfor %}
+            </select>
+		</div>
+    
+    <div class="form-group col-md-4 col-xs-4" id="GrpDateStarts"> 
+            <label for="DateStarts" class="control-label"><b>Date Starts</b></label>
+            <input type="text" id="DateStarts" name="DateStarts" placeholder="Date Starts" value="{{ form.instance.DateStarts|date:'Y-m-d' }}" class="form-control input-md input-date c">
+		</div>
+    <div class="form-group col-md-4 col-xs-4" id="GrpDateEnds"> 
+            <label for="DateEnds" class="control-label"><b>Date Ends</b></label>
+            <input type="text" id="DateEnds" name="DateEnds" placeholder="Date Ends" value="{{ form.instance.DateEnds|date:'Y-m-d' }}" class="form-control input-md input-date c">
+		</div>
+        <div class="form-group col-lg-12" id="GrpReportRemarks"> 
+            <label for="ReportRemarks" class="control-label"><b>Remarks</b></label>
+            <textarea id="ReportRemarks" name="ReportRemarks" placeholder="Remarks" class="form-control textarea-md">{{ form.instance.ReportRemarks }}</textarea>
+		</div>
+</div>
+    <input type="hidden" id="id" name="id" class="form-control input-sm" value="{{ form.instance.id }}">
+    <input type="hidden" id="ReportID" name="ReportID" class="form-control textarea-md" value="{{ form.instance.ReportID }}">
+    </form>
+            </div>
+            <div class="modal-footer"><!--justify-content-between-->  
+              
+              <button type="button" class="btn btn-warning btn-md btn-flat btn-saveupdate" id="{{ form.instance.id }}" trans-id="{{ form.instance.ReportID }}"><i class="fa fa-paper-plane"></i> Save</button>
+              <button type="button" class="btn btn-default btn-md btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
+<style>
+    .control-label{margin-bottom: 0px;}
+</style>

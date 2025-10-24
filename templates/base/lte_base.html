@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ ProjectName }} : {% block title %}My Site{% endblock %}</title>
+    <link rel="SHORTCUT ICON" href="{% static '/img/dotr-logo.png' %}"/>
+
+    <!-- Font Awesome Icons -->
+    <link href="{% static 'jasb/lte/css/jasb-fcad2de79d7c7cba899c914ad1fa2906.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Ionicons -->
+    <link href="{% static 'jasb/lte/css/jasb-7b59c600dec94c7764f9088be40d321b.css' %}" rel="stylesheet" type="text/css"/>
+    
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+    <!-- Font Awesome Icons -->
+    
+    <link href="{% static 'jasb/lte/css/jasb-7f7fa0d8e2403f98a33e56961830303a.css' %}" rel="stylesheet">
+    <!-- IonIcons -->
+    <!--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
+    <!-- Theme style -->
+    <link href="{% static 'jasb/lte/css/jasb-3c97afc6a163936744b59cab3f630c45.css' %}" rel="stylesheet">
+    
+    <!-- Link your CSS files here -->
+    <!--link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script-->
+
+    <!-- Notiflix -->	
+    <link href="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.css' %}" rel="stylesheet" >
+    <script src="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.js' %}" type="text/javascript"></script>  
+
+    <!-- DatePicker -->	
+    <link href="{% static 'jasb/daterangepicker/jasb-4a39b32fa402c60c1db2b85278aa6df5.css' %}" rel="stylesheet" >
+
+    <!-- jQuery -->
+    <script src="{% static 'jasb/common/jasb-b59714ab5055a284016d822ee97be029.js' %}" type="text/javascript"></script>
+  <style>
+
+    .b{ font-weight: bold; }
+    .c{ text-align: center; }
+    .r{ text-align:right; }
+    .l{ text-align:left; }
+    .i{ font-style:italic;}
+    .u{ text-decoration:underline; }
+    .v{ vertical-align:middle; }
+    .vlr{ writing-mode: vertical-rl; transform: rotate(180deg); text-orientation: sideways; text-align:center; text-orientation: sideways; }
+    .pull-left{ float: left !important; }
+    .pull-right { float: right !important; }
+
+    .darkred{ color: darkred;}
+    .darkgreen{ color: darkgreen; }
+    
+    .table-container {
+        overflow-x: auto; /* or scroll */
+        width: 100%; /* or a fixed width */
+    }
+    .custom-scrollable-modal {
+    max-height: 400px; /* Adjust this value as needed */
+    overflow-y: auto;
+    }
+    .table-hover ttbody tr:hover {
+      background-color: #d6e9c6;
+    }
+    td{ vertical-align: middle; }
+
+    .input-sm {
+      height: 31px; /* The default height for input-sm */
+      padding: 5px 10px; /* The default padding for input-sm */
+      font-size: 12px; /* The default font size for input-sm */
+    }
+
+    .input-md {
+      height: 38px; /* A custom height */
+      padding: 8px 12px; /* A custom padding */
+      font-size: 14px; /* A custom font size */
+    }
+    .knob-label {
+    display: block;
+    width: fit-content; /* Only takes up the space needed by the text */
+    margin: 0 auto; /* Horizontally centers the block */
+    }
+
+  .modal-body input.input-xxs {
+    height: 18px;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+
+  .modal-body .input-sm {
+    height: 31px; /* The default height for input-md */
+    padding: 2px 5px; /* The default padding for input-md */
+    font-size: 14px; /* The default font size for input-md */
+    font-family: 'Trebuchet MS';
+  }
+
+  .modal-body .input-md {
+    height: 36px; /* The default height for input-sm */
+    padding: 2px 5px; /* The default padding for input-sm */
+    font-size: 16px; /* The default font size for input-sm */
+    font-family: 'Trebuchet MS';
+  }
+
+  /* Base styles for the textarea */
+  .modal-body .textarea-md {
+    /* Sizing and padding */
+    height: 80px;
+    padding: 2px 5px;
+    
+    /* Typography */
+    font-size: 13px;
+    font-family: 'Trebuchet MS', sans-serif; /* Add a fallback font */
+    
+    /* Visual appearance */
+    border: 1px solid #ccc; /* Add a border for definition */
+    border-radius: 4px; /* Give it rounded corners */
+    width: 100%; /* Make it fill its container */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    
+    /* Disable manual resizing by the user */
+    /*resize: none;*/
+  }
+
+  /* Style for when the textarea is focused */
+  .modal-body .textarea-md:focus {
+    border-color: #66afe9; /* Highlight the border on focus */
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Add a subtle glow */
+  }
+
+  table td { vertical-align: middle !important; }
+  .v-align-table th { vertical-align: middle !important; }
+
+  .col-xs-15, .col-sm-15, .col-md-15, .col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .col-xs-15 { width: 20%; float: left; }
+
+  @media (min-width: 768px) {
+      .col-sm-15 { width: 20%; float: left; }
+  }
+  @media (min-width: 992px) {
+      .col-md-15 { width: 20%; float: left; }
+  }
+  @media (min-width: 1200px) {
+      .col-lg-15 { width: 20%; float: left; }
+  }
+
+  table tbody .td { vertical-align: middle; }
+  .des-blue{ color:#3c8dbc;}
+  .orange{ color:#ffa500;}
+  .soft-red{ color:#f56954;}
+  .vib-green{ color:#00a65a;}
+  .aqua{ color:#00c0ef;}
+  .vam{ vertical-align: middle; }
+  .has-error .help-block,.has-error .control-label,.has-error .radio,.has-error .checkbox,.has-error .radio-inline,.has-error .checkbox-inline{color:#a94442;}
+  .has-error .form-control{border-color:#a94442;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);}
+  .has-error .form-control:focus{border-color:#843534;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483;}
+  .has-error .input-group-addon{color:#a94442;background-color:#f2dede;border-color:#a94442;}
+  .has-error .form-control-feedback{color:#a94442;}
+  </style>      
+</head>
+<body class="sidebar-mini" style="height: auto;">
+  <div class="wrapper">
+        <!-- Navbar -->
+            {% include 'base/lte_header.html' %}
+        <!-- Navbar -->
+        <!-- Main Sidebar Container -->
+            {% include 'base/lte_aside_nav.html' %}
+        <!-- Main Sidebar Container -->
+    <div class="content-wrapper" style="min-height: 1302.12px;">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">{% block content-header %}My Dashboard{% endblock %}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a>Home</a></li>
+                    <li class="breadcrumb-item active">{% block breadcrumb %}My Dashboard{% endblock %}</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                  {% block content %}{% endblock %}
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content -->   
+    </div>
+    {% include 'base/lte_footer.html' %}
+  </div>
+
+<script>
+    $(function(){ Notiflix.Loading.Standard();  $("#NotiflixLoadingWrap").fadeOut('slow'); });
+    $(function(){ Notiflix.Notify.Init({useIcon:false,borderRadius:"0px"}); Notiflix.Confirm.Init({ borderRadius:"0px"}); Notiflix.Report.Init({ borderRadius:"0px"}); });
+//==============================================================================================================================================================================
+const currentPath = window.location.pathname;
+document.querySelectorAll('.nav a').forEach(link => {
+  const href = link.getAttribute('href');
+  const siteUrl = currentPath;
+  //console.log('href:', href);
+  //console.log('siteUrl:', siteUrl);
+  // Clear existing 'active' states on each check to prevent multiple active items
+  link.classList.remove('active');
+  const parentLi = link.closest('li');
+  if (parentLi) parentLi.classList.remove('active');
+  const parentUl = link.closest('ul.nav-treeview');
+  if (parentUl) {
+    const grandParentLi = parentUl.closest('li');
+    //if (grandParentLi) grandParentLi.classList.remove('menu-is-opening', 'menu-open', 'new-class-name', 'active');
+  }
+  // Check if the current link's href matches the current page path
+  if (href === siteUrl) {
+    link.classList.add('active');
+    //console.log('child:', 'active');
+    
+    // Also add active class to parent <li> if submenu
+    if (parentLi) parentLi.classList.add('active');
+    //console.log('parentli:', 'active');
+
+    // Expand parent menu (the Dashboard item)
+    if (parentUl) {
+      const grandParentLi = parentUl.closest('li');
+      if (grandParentLi) {
+        grandParentLi.classList.add('menu-is-opening', 'menu-open', 'new-class-name', 'active');
+        //console.log('gparentli:', 'active');
+      }
+    }
+  }
+});
+//===========================================================================================================================
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+//===========================================================================================================================
+</script>
+<!-- REQUIRED SCRIPTS -->
+
+<!-- Bootstrap -->
+<script src="{% static 'jasb/lte/js/jasb-af332f59e1f6c4e26b4e8a0fc5091cc3.js' %}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'jasb/lte/js/jasb-b3525921156bfa51d142854276a74fc9.js' %}"></script>
+
+<!-- DatePicker -->
+<script src="{% static 'jasb/daterangepicker/jasb-a41a76dd1bee993ae432d7682d893051.js' %}"></script>
+<script src="{% static 'jasb/daterangepicker/jasb-b50b2c0167f807749c1431cbf6bd6a0a.js' %}"></script>
+
+<script src="{% static 'jasb/common/jasb-90ccf32eaae9ae5a6f5bccd98b1145ef.js' %}" type="text/javascript"></script>
+
+<script src="https://adminlte.io/themes/v3/plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<!--<script src="https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js"></script>-->
+<!-- AdminLTE for demo purposes -->
+<!--<script src="https://adminlte.io/themes/v3/dist/js/demo.js"></script>-->
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!--<script src="https://adminlte.io/themes/v3/dist/js/pages/dashboard3.js"></script>-->
+
+<!-- Modal form-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="myModalOver" tabindex="-1" role="dialog" aria-labelledby="myModalLabelOver" aria-hidden="true"></div>
+<div class="modal fade" id="myModalPopOver" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPopOver" aria-hidden="true"></div>
+<!-- end of modal -->
+  
+</body>
+</html>

@@ -1,0 +1,227 @@
+{% load static %}
+<section class="sheet" style="border:0px solid #000;">
+<div style="padding-left:35px; background-color: #17458a; border-collapse:collapse; height:30px; width:790px; color: #FFF; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="l">
+  DICT-PNPKI-FO-001 Revised 2025  
+</div>  
+    <article style="border:1px solid #FFF; border-collapse:collapse; height:271mm; padding:0px;">
+<table width="100%" style="border:0px solid #000; border-collapse:collapse; width:720px; height:1025px;" align="center">
+    <tr>   
+        <td style="vertical-align: top;">
+          <table style="width:100%;">
+            <tr>
+              <td style="padding:10px; align-items: center;" class="c" colspan="2"><img src="{% static '/img/dict-pnpki-logo.png' %}" style="height:90px;"></img></td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;"> P N P K I&nbsp;&nbsp;&nbsp;I N D I V I D U A L&nbsp;&nbsp;&nbsp;C E R T I F I C A T E&nbsp;&nbsp;&nbsp;F O R M</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding:10px;">
+                        <table width="100%">
+                            <tr>
+                                <td style="padding-left:20px; vertical-align: top;">
+                                    <table width="100%">
+                                        <tr><td colspan="3" class="b l"  style="padding:5px;">INSTRUCTIONS:</td></tr>
+                                        <tr><td width="20"></td><td style="padding:2px;">1. Please complete the form using <b>BLOCK LETTERS</b> ONLY.</td></tr>
+                                        <tr><td width="20"></td><td style="padding:2px;">2. All fields are required for successful submission.</td></tr>
+                                        <tr><td width="20"></td><td style="padding:2px;">3. Any discrepancy or inconsistency in the information<br>&nbsp;&nbsp;&nbsp;&nbsp;provided may result in delays or denial of the application.</td></tr>
+                                        <tr><td width="20"></td><td style="padding:2px;">4. Place a <b>CHECK MARK</b> in the box that corresponds to your answer.</td></tr>
+                                        <tr><td width="20"></td><td style="padding:2px;">5. Do NOT input acronyms or abbreviated information.</td></tr>
+                                    </table>
+                                </td>
+                                <td style="border:1px solid #000; width:3.5cm; height:4.5cm; vertical-align: middle;">
+                                    <img src="{{ form.instance.PassportPhoto.url }}" style="width:3.5cm; height:4.5cm; border: solid 2px #FFF;" aria-placeholder="Affix recent passport size (35x45mm) photograph of the applicant"></img>
+                                </td>
+                            </tr>
+                          </table>
+              </td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c"> A P P L I C A N T&nbsp;&nbsp;&nbsp;D E T A I L S</td>
+            </tr>
+
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding:10px;">
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:200px; padding: 3px;" class="c">Last Name</td>
+                                <td style="width:5px;;"></td>
+                                <td style="width:200px;" class="c">First Name</td>
+                                <td style="width:5px;;"></td>
+                                <td style="width:200px;" class="c">Middle Name</td>
+                                <td style="width:5px;;"></td>
+                                <td style="width:200px;" class="c">Name Extension(JR/SR/III)</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #d6e8f7; padding:5px;" class="b c">{{ form.instance.LastName|upper }}</td>
+                                <td></td>
+                                <td style="background-color: #d6e8f7; padding:5px;" class="b c">{{ form.instance.FirstName|upper }}</td>
+                                <td></td>
+                                <td style="background-color: #d6e8f7; padding:5px;" class="b c">{{ form.instance.MiddleName|upper }}</td>
+                                <td></td>
+                                <td style="background-color: #d6e8f7; padding:5px;" class="b c">{{ form.instance.ExtensionName|upper }}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:30px;">Sex</td>
+                                <td style="background-color: #d6e8f7; width:15px; padding:5px;" class="b">
+                                    <b style="font-size:14px;">{% if form.instance.GenderID == 1 %}&#x2611;{% else %}&#x2610;{% endif %}</b>
+                                </td>
+                                <td style="width:40px;">&nbsp;Male</td>
+                                <td style="background-color: #d6e8f7; width:15px; padding:5px;" class="b">
+                                    <b style="font-size:14px;">{% if form.instance.GenderID == 2 %}&#x2611;{% else %}&#x2610;{% endif %}</b>
+                                </td>
+                                <td style="width:40px;">&nbsp;Female</td>
+                                <td style="width:80px; padding-left:20px;">Nationality</td>
+                                <td style="background-color: #d6e8f7; width:200px; padding:5px;" class="b">{{ address.CountryName|upper }}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:190px;">Date of Birth (MM/DD/YYYY)</td>
+                                <td style="background-color: #d6e8f7; width:150px; padding:5px;" class="b">{{ form.instance.BirthDate|date:"d/m/Y"|upper }}</td>
+                                <td style="width:50px; padding-left:20px;">TIN</td>
+                                <td style="background-color: #d6e8f7; width:260px; padding:5px;" class="b">{{ form.instance.TaxIDNumber }}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:190px;">Organization/Agency/Company</td>
+                                <td style="background-color: #d6e8f7; width:490px; padding:5px;" class="b">{{ form.instance.OrgAgencyCompany|upper }}</td>
+                            </tr>
+                        </table>
+                        <table style="font-size:13px;">
+                            <tr>
+                                <td style="width:250px;">Organizational Unit/Department/Division</td>
+                                <td style="background-color: #d6e8f7; width:430px; padding:5px;" class="b">{{ form.instance.OrgUnitDeptDiv|upper }}</td>
+                            </tr>
+                        </table>
+              </td>
+            </tr>
+
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c"> C O N T A C T&nbsp;&nbsp;&nbsp;D E T A I L S</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding:10px;">
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:130px;">Unit/Room/House No.</td>
+                                <td style="background-color: #d6e8f7; width:150px; padding:5px;" class="b">{{ form.instance.HouseUnitNumber|upper }}</td>
+                                <td style="width:50px; padding-left:20px;">Street</td>
+                                <td style="background-color: #d6e8f7; width:320px; padding:5px;" class="b">{{ form.instance.Street|upper }}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:65px;">Barangay</td>
+                                <td style="background-color: #d6e8f7; width:215px; padding:5px;" class="b">{{ address.BrgyName|upper }}</td>
+                                <td style="width:110px; padding-left:20px;">Municipality/City</td>
+                                <td style="background-color: #d6e8f7; width:260px; padding:5px;" class="b">{{ address.CityMunname }}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr>
+                                <td style="width:65px;">Province</td>
+                                <td style="background-color: #d6e8f7; width:515px; padding:5px;" class="b">{{ address.ProvName }}</td>
+                                <td style="width:70px; padding-left:20px;">Zip Code</td>
+                                <td style="background-color: #d6e8f7; width:100px; padding:5px;" class="b">{{ form.instance.ZipCode }}</td>
+                            </tr>
+                        </table>
+                        <table style="font-size:13px;">
+                            <tr>
+                                <td style="width:65px;">Mobile No.</td>
+                                <td style="background-color: #d6e8f7; width:115px; padding:5px;" class="b">{{ form.instance.MobileNumber }}</td>
+                                <td style="width:170px; padding-left:20px;">Official Work Email Address</td>
+                                <td style="background-color: #d6e8f7; width:300px; padding:5px;" class="b">{{ form.instance.EmailAddress }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="padding-top:3px;" class="c">*PNPKI-related emails will be sent to this email address.</td>
+                            </tr>
+                        </table>
+              </td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c">D E C L A R A T I O N</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding-left:10px; padding-right:10px;">
+                        <table width="100%" style="font-size: 11px;">
+                            <tr>
+                                <td style="vertical-align: top; text-align: justify;">
+                                 <p>I hereby agree that I have read and understood the provisions of the Subscriber Agreement; that all information provided and
+documents submitted in relation to this application is true and correct to the best of my knowledge; that I am duly authorized to
+make this application; that I consent to the subscriber agreement and will abide by the same; that I accept the publication of my
+certificate information.</p>
+<p>I authorize and expressly give consent to the Philippine National PKI through its authorized representative(s) to verify my personal
+information from whatever source it deems appropriate.</p>
+                                </td>
+                            </tr>
+                          </table>
+
+                        <table align="center">
+                            <tr>
+                                <td style="width:700px; padding-left:20px; padding-right:20px;">
+                                    <div style="position: relative;">
+                                        <table width="100%" style="position: relative; z-index:2;">
+                                            <tr style="height:22px;">
+                                                <td style="width:40px; vertical-align: bottom;">Date:</td>
+                                                <td style="border-bottom:1px solid #000; width:80px; vertical-align: bottom;" class="b c"> {{ form.instance.TransDate|date:'Y-m-d'}} </td>
+                                                <td style="width:40px; vertical-align: bottom; padding-left:10px">Place:</td>
+                                                <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                                <td style="width:100px; vertical-align: bottom; padding-left:10px">Name of Applicant:</td>
+                                                <td style="border-bottom:1px solid #000; width: 250px; vertical-align: bottom;" class="b c">
+                                                    {{ form.instance.FirstName|upper }} {{ form.instance.MiddleName|upper }} {{ form.instance.LastName|upper }} {{ form.instance.ExtensionName|upper }}
+                                                </td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="vertical-align: bottom; padding-left:10px">Signature:</td>
+                                                <td style="border-bottom: 1px solid #000; width: 200px; vertical-align: top;"></td>
+                                            </tr>
+                                        </table>
+                                        <div style="position: absolute; bottom: -23px; right: 40px;">
+                                            <img src="{{ form.instance.SignatureImage.url }}" style="width: 150px; max-height: 100px;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>        
+                        </table>                          
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+</table>
+    </article>
+<div style="position:absolute; bottom: 18mm; left: 10mm;" >
+  <img src="{% static '/img/dict-pnpki-qrcode.jpg' %}" style="width:75.591px;"></img>
+</div>
+<div style="background-color: #17458a; height: 40px; width: 790px; color: #FFF; display: flex; align-items: center; justify-content: space-between;">
+  <div style="width: 60px;"></div>
+  <div style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    DICT-PNPKI-FO-001<br>
+    Version 5. Revised May 2025
+  </div>
+  <span style="background-color: #fdc823; display: flex; height: 40px; width: 60px;"></span>
+</div>
+<div style="background-color: #d6e8f7; border-collapse:collapse; height:20px; width: 790px; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; justify-content: center;">
+</div>
+</section>

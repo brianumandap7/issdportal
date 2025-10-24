@@ -1,0 +1,81 @@
+    {% extends 'base/lte_base.html' %}
+
+    {% block title %}About - My Website{% endblock %}
+    {% block content-header %}Application Form{% endblock %}
+    
+    {% block content %}
+
+<div class="col-md-6">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Quick Example</h3>
+    </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form method="post" enctype="multipart/form-data" autocomplete="off">
+                {% csrf_token %}
+                <!--{{ form.as_p }}-->
+                
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="id_FirstName">First Name</label>
+                      <input type="text" class="form-control" name="FirstName" id="id_FirstName" placeholder="First Name" value="{{ form.instance.FirstName }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_MiddleName">Middle Name</label>
+                      <input type="text" class="form-control" name="MiddleName" id="id_MiddleName" placeholder="Middle Name" value="{{ form.instance.MiddleName }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_LastName">Last Name</label>
+                      <input type="text" class="form-control" name="LastName" id="id_LastName" placeholder="Last Name" value="{{ form.instance.LastName }}" required>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="id_BirthDate">Birth Date</label>
+                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                          <input type="text" name="BirthDate" id="id_BirthDate" class="form-control datetimepicker-input" data-target="#reservationdate" value="2025-08-28" required>
+                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_GenderID">Gender</label>
+                      <input type="text" class="form-control" name="GenderID" id="id_GenderID" placeholder="Gender" value="{{ form.instance.GenderID }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="id_EmailAddress">Email Address</label>
+                      <input type="email" name="EmailAddress" id="id_EmailAddress" class="form-control" id="id_EmailAddress" placeholder="Enter Email" value="{{ form.instance.EmailAddress }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="exampleInputFile">File input</label>
+                      <div class="input-group">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="exampleInputFile">
+                          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                          <span class="input-group-text">Upload</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                  </div>
+                  
+                  <!-- /.card-body -->
+                  
+                  <input type="hidden" name="StatusID" id="id_StatusID" class="form-control" value="1">
+                
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-md btn-primary btn-flat">Submit</button>
+                    <a href="{% url 'applicant_list' %}" class="btn btn-md btn-default btn-flat">Back</a>
+                  </div>
+                </form>
+  </div>
+</div>  
+    {% endblock %}

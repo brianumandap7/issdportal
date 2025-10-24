@@ -1,0 +1,297 @@
+{% extends "basetemp/main_base.html" %}
+{% load static %}
+{% block content %} 
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Welcome, {{user.get_full_name}}!</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Info boxes -->
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box">
+            <span class="info-box-icon"><i class="fas fa-users"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Workbench Tickets</span>
+              <span class="info-box-number">{{workbench}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon"><i class="fas fa-bell"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Vulnerability/Threat Tickets</span>
+              <span class="info-box-number">{{vulnerabilities}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon"><i class="fas fa-shield-alt"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Project Sonar</span>
+              <span class="info-box-number">{{sonar}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon"><i class="fab fa-github"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Threat Advisories</span>
+              <span class="info-box-number">{{advisories}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small boxes (Stat boxes) -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{total}}</h3>
+              <p>Total Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{unassigned}}</h3>
+              <p>Unassigned Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-folder"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{investigation}}</h3>
+              <p>Tickets Under Investigation</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-unlocked"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>{{resolved}}</h3>
+              <p>Resolved Tickets</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ticket Notifications with Tabs -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header p-2">
+              <ul class="nav nav-pills">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#threats" data-toggle="tab">Threats</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#advisories" data-toggle="tab">Advisories</a>
+                </li>
+              </ul>
+              
+            </div>
+
+            <div class="card-body p-0">
+              <div class="tab-content">
+                <!-- Threats Table -->
+                <div class="tab-pane fade show active" id="threats">
+
+                      <a href="#" class="btn btn-info float-right btn-custom" data-toggle="modal" data-target="#addTicketModal">
+                      Add Ticket
+                      </a>
+                  
+                  <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Ticket Ref #</th>
+                      <th class="d-none d-sm-table-cell" style="width: 10%">Type</th>
+                      <th class="d-none d-sm-table-cell">TLP</th>
+                      <th style="width: 20%">Vulnerability</th>
+                      <th class="d-none d-sm-table-cell" style="width: 20%">Description</th>
+                      <th class="d-none d-sm-table-cell">Severity</th>
+                      <th>Assigned Responder</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for items in tdata %}
+                    <tr>
+                      <td>{{items.Ticket_number}}</td>
+                      <td class="d-none d-sm-table-cell">{{items.Classification}}</td>
+                      <td class="d-none d-sm-table-cell">{{items.TLP}}</td>
+                      <td>{{items.Vulnerability}}</td>
+                      <td class="d-none d-sm-table-cell text-justify">{{items.Description}}</td>
+                      <td class="d-none d-sm-table-cell">{{items.Severity}}</td>
+                      <td>{{items.Responder}}</td>
+                      {% if user.is_superuser %}
+                        <td>
+                          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#assignModal">
+                            Assign
+                          </a>
+                        </td>
+                      {% else %}
+                        <td><button class="btn btn-success" disabled>Assign</button></td>
+                      {% endif %}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+
+                </div>
+
+                <!-- Advisories Table -->
+                <div class="tab-pane fade" id="advisories">
+                  <a href="#" class="btn btn-info float-right btn-custom1" data-toggle="modal" data-target="#addAdvModal">
+                      Add Advisory
+                  </a>
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Ref #</th>
+                        <th>Vulnerability</th>
+                        <th class="d-none d-sm-table-cell">Description</th>
+                        <th class="d-none d-sm-table-cell">Recommendations</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for adv in tdata1 %}
+                      <tr>
+                        <td>{{adv.Ticket_number}}</td>
+                        <td>{{adv.Vulnerability}}</td>
+                        <td class="d-none d-sm-table-cell text-justify">{{adv.Description}}</td>
+                        <td class="d-none d-sm-table-cell text-justify"><pre>{{adv.Recommendations}}</pre></td>
+                        <td>
+                          <a href="#" class="btn btn-success">View</a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- /.tab-content -->
+            </div><!-- /.card-body -->
+          </div><!-- /.card -->
+        </div>
+      </div>
+
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Add Ticket Modal -->
+<div class="modal fade" id="addTicketModal" tabindex="-1" role="dialog" aria-labelledby="addTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content" style="height: 80vh;">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTicketModalLabel">Add Ticket</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body" style="flex: 1; overflow-y: auto;">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form %}
+            <p>
+              {{ field.label|safe }}
+              {{ field }}
+              {{ field.errors }}
+            </p>
+          {% endfor %}
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-info" value="Save">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Add Adv Modal -->
+<div class="modal fade" id="addAdvModal" tabindex="-1" role="dialog" aria-labelledby="addTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content" style="height: 80vh;">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTicketModalLabel">Add Advisory</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body" style="flex: 1; overflow-y: auto;">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form1 %}
+            <p>
+              {{ field.label|safe }}
+              {{ field }}
+              {{ field.errors }}
+            </p>
+          {% endfor %}
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-info" value="Save">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

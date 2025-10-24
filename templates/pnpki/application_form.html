@@ -1,0 +1,560 @@
+    {% extends 'base/note_form.html' %}
+    {% load static %}
+    {% block title %}PNPKI Application{% endblock %}
+    {% block content-header %}Application Form{% endblock %}
+    
+    {% block content %}
+
+	<section id="content" class="animated fadeInUp"> <!--m-t-lg wrapper-md -->
+		<div class="container"><!-- aside-xxl--> 
+			<section class="panel panel-default bg-white m-t-lg" style="font-size:12px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); border-radius: 20px;"> 
+<header class="panel-heading" style="border-top-left-radius: 20px; border-top-right-radius: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <img src="{% static '/img/DOTr-BP-Logo.png' %}" style="height:50px;">
+    <strong style="font-size:24px; color:#02137f;">PNPKI Application</strong>
+</header>            
+    <form id="ApplicationForm" name="ApplicationForm" method="post" enctype="multipart/form-data" autocomplete="off" class="panel-body wrapper-lg">
+        {% csrf_token %}  
+		<fieldset><!--disabled--> 
+			<div class="row">
+				<div class="col-xs-12">
+				    <label for="info" class="control-label" style="font-size:16px;"><b name="info">APPLICANT’S DETAILS:</b></label>
+                </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpLastName"> 
+							        <label for="LastName" class="control-label"><b>Last Name</b></label>
+							        <input type="text" id="LastName" name="LastName" placeholder="Last Name" value="" class="form-control input-sm">
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpFirstName"> 
+							        <label for="FirstName" class="control-label"><b>First Name</b></label>
+							        <input type="text" id="FirstName" name="FirstName" placeholder="First Name" value="" class="form-control input-sm">
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpMiddleName"> 
+							        <label for="MiddleName" class="control-label"><b>Middle Name</b></label>
+							        <input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name" value="" class="form-control input-sm">
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpExtensionName"> 
+							        <label for="ExtensionName" class="control-label"><b>Name Extension</b> <small class="note">NA if Not Applicable</small></label>
+							        <input type="text" id="ExtensionName" name="ExtensionName" placeholder="Name Extension" value="" class="form-control input-sm">
+						        </div>
+      
+                                <div class="form-group col-md-3 col-xs-6" id="GrpGenderID"> 
+							        <label for="GenderID" class="control-label"><b>Gender</b></label>
+							        <select name="GenderID" id="GenderID" placeholder="Gender" class="form-control input-sm">
+                                        <option value="">--</option>
+                                    {% for id, GenderName in form.GenderType.field.choices %}
+                                        <option value="{{ id }}">
+                                            {{ GenderName|upper }}
+                                        </option>
+                                    {% endfor %}                                        
+                                    </select>
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpNationalityID"> 
+							        <label for="NationalityID" class="control-label"><b>Nationality</b></label>
+							        <select name="NationalityID" id="NationalityID" placeholder="Nationality" class="form-control input-sm">
+                                        <option value="">---</option>
+                                        <option value="169">PHILIPPINES</option>
+                                        <option value="">---</option>
+                                    {% for id, nationality in form.CountryName.field.choices %}
+                                        <option value="{{ id }}">
+                                            {{ nationality|upper }}
+                                        </option>
+                                    {% endfor %}                                        
+                                    </select>
+						        </div>
+						        <div class="form-group col-md-3 col-xs-6" id="GrpBirthDate"> 
+							        <label for="BirthDate" class="control-label"><b>Birth Date</b> <small class="note">YYYY-MM-DD</small></label>
+							        <input type="text" id="BirthDate" name="BirthDate" placeholder="YYYY-MM-DD" pattern="d{4}-d{2}-\d{2}" value="" class="form-control input-sm input-date">
+						        </div>
+						        <div class="form-group col-md-3 col-xs-6" id="GrpTaxIDNumber"> 
+							        <label for="TaxIDNumber" class="control-label"><b>Tax ID Number</b></label>
+							        <input type="text" id="TaxIDNumber" name="TaxIDNumber" placeholder="Tax ID Number" class="form-control input-sm"
+                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{3}" maxlength="15"  title="Format: 000-000-000-000">
+						        </div>
+                                <div class="form-group col-md-6 col-xs-12" id="GrpOrgAgencyCompany"> 
+							        <label for="OrgAgencyCompany" class="control-label"><b>Organization/Agency/Company</b></label>
+							        <input type="text" id="OrgAgencyCompany" name="OrgAgencyCompany" placeholder="Organization/Agency/Company" value="" class="form-control input-sm">
+						        </div>
+                                <div class="form-group col-md-6 col-xs-12" id="GrpOrgUnitDeptDiv"> 
+							        <label for="OrgUnitDeptDiv" class="control-label"><b>Organizational Unit/Department/Division</b></label>
+							        <input type="text" id="OrgUnitDeptDiv" name="OrgUnitDeptDiv" placeholder="Organizational Unit/Department/Division" value="" class="form-control input-sm">
+						        </div>
+				<div class="col-xs-12">
+					<div class="line line-dashed"></div> 
+					<label for="cd" class="control-label" style="font-size:16px;"><b id="cd">CONTACT DETAILS:</b></label>
+                </div> 
+						        <div class="form-group col-md-3 col-xs-6" id="GrpHouseUnitNumber"> 
+							        <label for="HouseUnitNumber" class="control-label"><b>House/Unit Number</b></label>
+							        <input type="text" id="HouseUnitNumber" name="HouseUnitNumber" placeholder="House/Unit Number" value="" class="form-control input-sm">
+						        </div> 
+						        <div class="form-group col-md-3 col-xs-6" id="GrpStreet"> 
+							        <label for="Street" class="control-label"><b>Street</b></label>
+							        <input type="text" id="Street" name="Street" placeholder="Street" value="" class="form-control input-sm">
+						        </div>
+						        <div class="form-group col-md-3 col-xs-6" id="GrpProvinceState"> 
+							        <label for="ProvinceState" class="control-label"><b>Province/State</b></label>
+							        <!--input type="text" id="ProvinceState" name="ProvinceState" placeholder="Province/State" value="" class="form-control input-sm"-->
+                                    <select name="ProvinceState" id="ProvinceState" placeholder="Province/State" class="form-control input-sm" required>
+                                    <!-- Loop through the form field's choices -->
+                                        <option value="">---</option>
+                                    {% for psgc_code, province_name in form.provDesc.field.choices %}
+                                        <option value="{{ psgc_code }}" {% if form.provDesc.value|add:'' == psgc_code|add:'' %}selected{% endif %}>
+                                            {{ province_name }}
+                                        </option>
+                                    {% endfor %}
+                                    </select>
+						        </div>
+						        <div class="form-group col-md-3 col-xs-6" id="GrpMunicipalityCity"> 
+							        <label for="MunicipalityCity" class="control-label"><b>Municipality/City</b></label>
+                                    <select id="MunicipalityCity" name="MunicipalityCity" placeholder="Municipality/City/State" class="form-control input-sm" required>
+                                         <option value="">---</option>
+                                        {% for psgc_code, citymun_name in form.citymun.field.choices %}
+                                            <option value="{{ psgc_code }}" {% if form.citymun.value|add:'' == psgc_code|add:'' %}selected{% endif %} >
+                                                {{ citymun_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpBarangay"> 
+							        <label for="Barangay" class="control-label"><b>Barangay</b></label>
+                                    <select id="Barangay" name="Barangay" placeholder="Barangay" class="form-control input-sm" required>
+                                        <option value="">---</option>
+                                        {% for psgc_code, brgy_name in form.barangay.field.choices %}
+                                            <option  value="{{ psgc_code }}" {% if form.barangay.value|add:'' == psgc_code|add:'' %}selected{% endif %}>
+                                                {{ brgy_name|upper }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+						        <div class="form-group col-md-3 col-xs-6" id="GrpZipCode"> 
+							        <label for="ZipCode" class="control-label"><b>Zip Code</b></label>
+							        <input type="text" id="ZipCode" name="ZipCode" placeholder="Zip Code" inputmode="numeric" pattern="[0-9]*" maxlength="4" class="form-control input-sm input-numb">
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpMobileNumber"> 
+							        <label for="MobileNumber" class="control-label"><b>Mobile Number</b></label>
+							        <input type="text" id="MobileNumber" name="MobileNumber" placeholder="Mobile Number" inputmode="numeric" pattern="[0-9]*" maxlength="11" class="form-control input-sm">
+						        </div>
+                                <div class="form-group col-md-3 col-xs-6" id="GrpEmailAddress"> 
+							        <label for="EmailAddress" class="control-label"><b>Email Address</b></label>
+							        <input type="email" id="EmailAddress" name="EmailAddress" placeholder="Email Address" value="" class="form-control input-sm">
+						        </div>
+
+				<div class="col-xs-12">
+					<div class="line line-dashed"></div> 
+					<label for="cd" class="control-label" style="font-size:16px;"><b id="cd">ATTACHMENT:</b></label>
+                </div>
+ <div class="row">
+                <div class="col-md-6">
+                        
+                    <div class="form-group col-md-12 col-xs-12" id="GrpPassportPhoto">
+                        <label for="PassportPhoto" class="control-label"><b>Take/Upload Passport Photo</a></label> 
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="PassportHolder" name="PassportHolder" disabled> 
+                            <div class="input-group-btn">
+                                <label for="PassportPhoto" class="btn btn-default"><span>Choose file</span></label>
+                            </div>
+                            <input type="file" class="filestyle hide file-pass-photo" accept="image/*" id="PassportPhoto" name="PassportPhoto" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-xs-12" id="GrpRequiredID"> 
+						<label for="RequiredID" class="control-label"><b>Required Document</b></label>
+						<select name="RequiredID" id="RequiredID" placeholder="Required Document" class="form-control input-sm">
+                            <option value="">---</option>
+                                {% for id, description in form.RequiredID.field.choices %}
+                                <option value="{{ id }}">
+                                    {{ description|upper }}
+                                </option>
+                                {% endfor %}
+                        </select>
+					</div>                    
+                    
+                    <div class="form-group col-md-12 col-xs-12" id="GrpAttachedFiles">
+                        <label for="AttachedFiles" class="control-label"><b>Take/Upload Valid ID</a></label> 
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="ValidIDHolder" name="ValidIDHolder" disabled> 
+                            <div class="input-group-btn">
+                                <label for="AttachedFiles" class="btn btn-default"><span>Choose file</span></label>
+                            </div>
+                            <input type="file" class="filestyle hide file-valid-id" accept="image/*,application/pdf" id="AttachedFiles" name="AttachedFiles" required>
+                        </div>
+                    </div>
+                    <!--div class="form-group col-md-12 col-xs-12" id="GrpSignatureImage">
+                        <label for="PassportPhoto" class="control-label"><b>Take/Upload Signature</a></label> 
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="SignatureHolder" name="SignatureHolder" disabled> 
+                            <div class="input-group-btn">
+                                <label for="FileSignatureImage" class="btn btn-default"><span>Choose file</span></label>
+                            </div>
+                            <input type="file" class="filestyle hide file-valid-sign" accept="image/*" id="FileSignatureImage" name="FileSignatureImage" required>
+                            
+                        </div>
+                    </div-->
+                    
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group col-md-12 col-xs-12" id="GrpSignatureImage">
+                        <label for="signature_data" class="control-label"><b>E-Signature</b></label>
+                        <div class="input-group">
+                            <canvas id="signature-pad" style="border:1px solid #000; width:100%; height:200px;"></canvas>
+                            <input type="hidden" name="signature_data" id="signature_data">
+                            <input type="hidden" name="SignatureImage" id="SignatureImage">
+                        </div>
+                        <a class="btn btn-sm btn-default" id="btn-clear"><i class="fa fa-eraser"></i> Clear Esign</a>
+                        <a class="btn btn-sm btn-warning" id="btn-confirm"><i class="fa fa-check"></i> Confirm Esign</a>
+                    </div>
+                </div>
+</div>                    
+                <div class="col-xs-12">
+                    <div class="line line-dashed"></div>
+                </div>
+                    <div class="col-xs-12">
+                        <div class="checkbox">
+                            <label for="TermServiceID" class="form-group checkbox-custom control-label" id="GrpTermServiceID">
+                                <input type="checkbox" id="TermServiceID" name="TermServiceID" value='1' required> 
+                                <i class="fa fa-fw fa-square-o"></i> You Agree To Our <a href="{% url 'consentagreement_view' %}" data-toggle="ajaxModal">Data Privacy (Consent/Agreement).</a>
+                            </label>
+                        </div>
+						        <a class="btn btn-md btn-primary btn-submit pull-right" id="btn-save"><i class="fa fa-paper-plane"></i> SUBMIT</a>
+					</div>
+					<div class="col-xs-12" align="center">
+					    <div class="line line-dashed"></div> 
+					</div>
+			</div>
+		</fieldset>	
+    </form>
+            </section> 
+		</div>
+		 
+	</section> 
+		<!-- footer --> 
+	<footer id="footer"> 
+		<div class="text-center padder"> <p> <small style="font-size:10px;">JASB © 2025</small> </p> </div> 
+	</footer> 
+		<!-- / footer --> <!-- Bootstrap --> <!-- App --> 
+<style>
+input{ text-transform: uppercase; }
+.note{ font-size:10px; font-style:italic; }
+.checkbox-custom.has-error > i:before { color: #a84442; }
+.fa-square-o.has-error{ color: #a84442; text-shadow: 0 0 5px #a84442; }
+.checkbox-custom i.checked:before { color: #92cf5c; /* Optional "checked" style */ }
+.blinking{ 	animation:blinkingText 0.8s infinite; }
+@keyframes blinkingText{
+	0%{     color: red;	}
+	49%{	color: transparent;	}
+	50%{	color: transparent;	}
+	99%{	color:transparent;	}
+	100%{	color: red;	}
+}
+</style>
+<script>
+document.getElementById('BirthDate').addEventListener('keyup', function() {
+  const BirthDate = document.getElementById('BirthDate');
+  BirthDate.addEventListener('input', (event) => {
+    // Get the current value of the input field
+    let value = event.target.value;
+    // Use a regular expression to remove any characters that are not a digit or a hyphen
+    value = value.replace(/[^0-9-]/g, '');
+    // Update the input field's value
+    event.target.value = value;
+  });
+});
+
+document.getElementById('TaxIDNumber').addEventListener('keyup', function() {
+  const input = document.getElementById('TaxIDNumber');
+
+  input.addEventListener('input', (event) => {
+    // Remove all non-numeric characters from the input value
+    let value = event.target.value.replace(/\D/g, '');
+    let formattedValue = '';
+
+    // Add hyphens after every third digit
+    for (let i = 0; i < value.length; i++) {
+      formattedValue += value[i];
+      if ((i + 1) % 3 === 0 && i !== value.length - 1) {
+        formattedValue += '-';
+      }
+    }
+    // Limit the total length to the maximum allowed by the pattern
+    event.target.value = formattedValue.slice(0, 15);
+  });
+});
+
+</script>
+<script>
+    $('.checkbox-custom').on('click', function (){ $('.checkbox-custom').removeClass('has-error'); $('.fa-square-o').removeClass('has-error'); });
+    $(function(){ $('.input-date').daterangepicker({ showDropdowns:true, singleDatePicker: true, format: 'YYYY-MM-DD' }); });
+    $(document).ready(function(){ $(".input-numb").keyup(function() { this.value = this.value.replace(/[^0-9]/g, ''); }); });
+//====================================================================================================================
+        $("#ProvinceState").change(function () {
+            var provinceId = $(this).val();
+            $.ajax({url: "{% url 'ajax_load_cities' %}", data: {'province_id': provinceId},
+                success: function (data) {
+                    $("#MunicipalityCity").html('<option value="">---</option>');
+                    $.each(data, function (index, item) {
+                        $("#MunicipalityCity").append('<option value="' + item.citymunCode + '">' + item.citymunDesc + '</option>');
+                    });
+                }
+            });
+        });
+//====================================================================================================================
+        $("#MunicipalityCity").change(function () {
+            var cityId = $(this).val();
+            $.ajax({url: "{% url 'ajax_load_barangays' %}", data: { 'city_id': cityId},
+                success: function (data) {
+                    $("#Barangay").html('<option value="">---</option>');
+                    $.each(data, function (index, item) {
+                        $("#Barangay").append('<option value="' + item.brgyCode + '">' + item.brgyDesc.toUpperCase() + '</option>');
+                    });
+                }
+            });
+        });
+//====================================================================================================================
+        $('.btn-submit').on('click',function(){
+            /*'ExtensionName'*/
+            var form = $('#ApplicationForm')[0];
+            var formData = new FormData(form);
+            var TxtBox = ['LastName','FirstName','MiddleName','GenderID','NationalityID','BirthDate','TaxIDNumber','OrgAgencyCompany','OrgUnitDeptDiv','HouseUnitNumber','Street','ProvinceState','MunicipalityCity','Barangay','ZipCode','MobileNumber','EmailAddress','PassportPhoto','RequiredID','AttachedFiles','SignatureImage'];
+            //var TxtBox = ['PassportPhoto','AttachedFiles','SignatureImage'];
+            if(TxtBox.some(f => isEmptyLte(document.forms.ApplicationForm[f], f, f))) return false;
+            if(isValidEmail(document.forms.ApplicationForm.EmailAddress,"EmailAddress","EmailAddress")) return false;
+            if(isEmptyCheck(document.forms.ApplicationForm.TermServiceID,"TermServiceID","TermServiceID")) return false;
+            $(".btn-submit .fa").addClass('fa-spinner fa-spin');
+            $(".btn-submit .fa").removeClass('fa-paper-plane');
+            $(".btn-submit").addClass('disabled');
+                $.ajax({
+                    url: "{% url 'applicationsave' %}",
+                    type: "post",
+                    data: formData,//$("#ApplicationForm").serialize(),
+                    dataType: "json",
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    processData: false, 
+                    contentType: false,
+                    beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+                    success: function(S){
+                        window.open(S.redirect_url,'_SELF'); 
+                        if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); 
+                        }else{ Notiflix.Notify.Success(S.response_advise); }
+                        $(".btn-submit .fa").removeClass('fa-spinner fa-spin');
+                        $(".btn-submit .fa").addClass('fa-paper-plane');
+                        $(".btn-submit").removeClass('disabled');
+                    },
+                    error: function(xhr, status, error){ 
+                        Notiflix.Loading.Standard('Error processing...');
+                        console.error('AJAX Error:', status, error);
+                        console.log('Response Text:', xhr.responseText);
+                        Notiflix.Notify.Failure("Error processing...");
+                        let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : '', TransID:'', tblname:"pnpki_application", UriSegmentLoc:"pnpki/applicationsave", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });                        
+                    }
+                });
+        });
+//====================================================================================================================
+	function isEmptyCheck(frmField,fldId,fldName) {
+        //document.getElementById(fldId).required = true;
+        if(document.getElementById(fldId).checked==false){
+            document.getElementById(fldId).autofocus;
+            Notiflix.Notify.Failure('Required.. Data Privacy (Consent/Agreement).');
+            $("#Grp"+fldId).addClass('has-error');
+            $(".fa-square-o").addClass('has-error');
+            //frmField.focus(); 
+            return true; 
+        }else{
+            $("#Grp"+fldId).removeClass('has-error');
+            $(".fa-square-o").removeClass('has-error');
+        }
+        return false;
+    }
+//====================================================================================================================
+	function isValidEmail(frmField,fldId,fldName) {
+
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let EmailAddress = $('#'+fldId).val().trim();
+        let emailValid = re.test(EmailAddress);
+        
+        if(!emailValid && EmailAddress !== ''){ 
+            $("#Grp"+fldId).addClass('has-error'); 
+            Notiflix.Notify.Failure('Valid Email Address id required..'); 
+            document.getElementById(fldId).autofocus;
+            return true; 
+        }else{ $('#GrpEmailAddress').removeClass('has-error'); }
+        return false;
+    }
+//====================================================================================================================
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== ''){
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) { cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); break; }
+            }
+        }
+        return cookieValue;
+    }
+//====================================================================================================================
+    $('.file-pass-photo').on('change',function(){
+        // Get the file input and textarea elements
+        const fileInput = document.getElementById('PassportPhoto');
+        const filenameOutput = document.getElementById('PassportHolder');
+        // Clear the textarea in case of a new selection
+        filenameOutput.value = '';
+        // Get the FileList object
+        const files = fileInput.files;
+        // Check if any files were selected
+        if (files.length > 0) {
+            let allFilenames = '';
+            // Loop through the FileList and append each filename
+            for (let i = 0; i < files.length; i++) {
+            // Add the filename, followed by a new line
+            allFilenames += files[i].name + ' \n';
+            console.log(allFilenames)
+            }
+            // Set the value of the textarea
+            filenameOutput.value = allFilenames;
+        }
+    });
+//====================================================================================================================
+    $('.file-valid-id').on('change',function(){
+        // Get the file input and textarea elements
+        const fileInput = document.getElementById('AttachedFiles');
+        const filenameOutput = document.getElementById('ValidIDHolder');
+        // Clear the textarea in case of a new selection
+        filenameOutput.value = '';
+        // Get the FileList object
+        const files = fileInput.files;
+        // Check if any files were selected
+        if (files.length > 0) {
+            let allFilenames = '';
+            // Loop through the FileList and append each filename
+            for (let i = 0; i < files.length; i++) {
+            // Add the filename, followed by a new line
+            allFilenames += files[i].name + ' \n';
+            console.log(allFilenames)
+            }
+            // Set the value of the textarea
+            filenameOutput.value = allFilenames;
+        }
+    });   
+//====================================================================================================================
+    document.getElementById('PassportPhoto').addEventListener('change', function() {
+        const file = this.files[0]; // get selected file
+        if (file) {
+            // Allowed extensions and MIME types
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            const allowedMimeTypes = ["image/jpeg","image/png"];
+
+            // Check extension and MIME type
+            if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
+                //alert("Invalid file type. Please upload only JPG or PNG.");
+                Notiflix.Notify.Failure("Invalid file type. Please upload only JPG or PNG.");
+                this.value = ""; // reset the input
+                $("#PassportHolder").val('');
+                return true; 
+            }
+        }
+    });   
+//====================================================================================================================
+    document.getElementById('AttachedFiles').addEventListener('change', function() {
+        const file = this.files[0]; // get selected file
+        if (file) {
+            // Allowed extensions and MIME types
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+            const allowedMimeTypes = ["image/jpeg","image/png"];//,"application/pdf"
+
+            // Check extension and MIME type
+            if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
+                //alert("Invalid file type. Please upload only JPG or PNG.");
+                Notiflix.Notify.Failure("Invalid file type. Please upload only JPG or PNG.");
+                this.value = ""; // reset the input
+                $("#ValidIDHolder").val('');  
+                return true; 
+            }
+        }
+    });
+//====================================================================================================================
+/*    document.getElementById('FileSignatureImage').addEventListener('change', function() {
+        const file = this.files[0]; // get selected file
+        if (file) {
+            // Allowed extensions and MIME types
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            const allowedMimeTypes = ["image/jpeg","image/png"];
+
+            // Check extension and MIME type
+            if (!allowedExtensions.exec(file.name) || !allowedMimeTypes.includes(file.type)) {
+                //alert("Invalid file type. Please upload only JPG or PNG.");
+                Notiflix.Notify.Failure("Invalid file type. Please upload only JPG or PNG.");
+                this.value = ""; // reset the input
+                $("#SignatureHolder").val('');
+                $("#SignatureImage").val('');
+                return true; 
+            }
+        }
+    });
+*/     
+//====================================================================================================================
+</script>
+
+<script>
+  //const canvas = document.getElementById("signature-pad");
+  //const signaturePad = new SignaturePad(canvas);
+
+  const canvas = document.getElementById("signature-pad");
+  const signaturePad = new SignaturePad(canvas, {
+      backgroundColor: "white", // Ensures white background instead of transparent
+      penColor: "blue" // Default color black blue
+  });
+
+  $('#btn-clear').on('click',function(){ signaturePad.clear(); document.getElementById("SignatureImage").value = ''; });
+
+  $('#btn-confirm').on('click',function(){
+      if (!signaturePad.isEmpty()) {
+          const dataURL = signaturePad.toDataURL("image/png");
+          document.getElementById("SignatureImage").value = dataURL;
+      } else {
+          Notiflix.Notify.Failure("Please provide a signature first."); return false;
+      }
+  });
+/*
+  // Get references to the HTML elements
+const fileInput = document.getElementById('FileSignatureImage');
+const base64Input = document.getElementById('SignatureImage');
+const SignatureHolder = document.getElementById('SignatureHolder');
+
+//SignatureHolder.value = '';
+// Add an event listener to the file input
+fileInput.addEventListener('change', (event) => {
+  const file = event.target.files[0]; // Get the first file from the input
+
+    const files = fileInput.files;
+    if (files.length > 0) { let allFilenames = ''; 
+        for (let i = 0; i < files.length; i++) { allFilenames += files[i].name + ' \n'; console.log(allFilenames)}
+        SignatureHolder.value = allFilenames;
+    }
+
+  if (file) {
+    const reader = new FileReader(); // Create a new FileReader instance
+
+    // Set up the event handler for when the file is finished loading
+    reader.onload = function(e) {
+      const dataURL = e.target.result; // Get the Base64 data URL
+      // Put the data URL into the text input
+      base64Input.value = dataURL;
+      // Display the image preview
+      //imagePreview.src = dataURL;
+      //imagePreview.style.display = 'block';
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+  } else {
+    
+    base64Input.value = '';
+    //imagePreview.src = '#';
+    //imagePreview.style.display = 'none';
+  }
+});
+*/
+</script> 
+    {% endblock %}

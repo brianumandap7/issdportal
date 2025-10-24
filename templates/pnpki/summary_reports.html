@@ -1,0 +1,465 @@
+    {% extends 'base/lte_base.html' %}
+    {% load static %}
+
+    {% block title %}Summary Reports{% endblock %}
+    {% block content-header %}Summary Reports{% endblock %}
+    {% block breadcrumb %}Summary Reports{% endblock %}
+    
+    {% block content %}
+
+<div class="col-md-12 post" style="font-family: 'Trebuchet MS'; font-size: 10px;">
+                  <div class="col-xs-15 col-md-15 text-center">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob new" value="0" data-width="90" data-height="90" data-fgcolor="#3c8dbc" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color:rgb(0, 166, 90); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">NEW</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob rts" value="0" data-width="90" data-height="90" data-fgcolor="#ffa500" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(206, 136, 6); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">RTS</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob dis" value="0" data-width="90" data-height="90" data-fgcolor="#f56954" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">DISAPPROVED</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob app" value="0" data-width="90" data-height="90" data-fgcolor="#00a65a" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label">APPROVED</div>
+                  </div>
+                  <!-- ./col -->
+                  <div class="col-xs-15 col-md-15 c">
+                    <div style="display:inline;width:90px;height:90px;">
+                      <input type="text" class="knob sub" value="0" data-width="90" data-height="90" data-fgcolor="#00c0ef" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; appearance: none;">
+                    </div>
+                    <div class="knob-label c">SUB TO DICT </div>
+                  </div>
+                  <!-- ./col -->
+</div>
+
+<div class="col-md-8">
+<div class="card">
+        <div class="card-header">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- The title on the left -->
+          <div>
+            <h3 class="card-title mb-0" style="font-size: 20px;">
+              <i class="fa fa-list"></i> Monthly Reports
+            </h3>
+          </div>
+          <!-- The search/filter elements on the right -->
+          <div class="row input-group col-lg-9 col-md-9 col-xs-9">
+            <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateFrom" value="{% now 'Y-01-01' %}" type="search" placeholder="Date From" title="Date From">
+            <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateEnds" value="{% now 'Y-m-d' %}" type="search" placeholder="Date End" title="Date End">
+            <select class="form-control form-control-sm" id="StatusID" name="StatusID">
+              <option value="">---</option>
+              {% for S in statusname %}
+              <option value="{{ S.id }}"> {{ S.Description }}</option>
+              {% endfor %}
+            </select>
+            <div class="input-group-append">
+              <a href="#" class="btn btn-sm btn-default btn-flat" onclick="GetSummaryList()"><i class="fa fa-search"></i> Search</a>
+              <a href="#" class="btn btn-sm btn-success btn-flat btn-createdit" id="" trans-id=""><i class="fa fa-plus"></i> Create</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="card-body p-0" style="display: block;">
+          <table id="TblReportsList" class="v-align-table table table-striped table-sm table-container table-hover projects" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+              <thead>
+                  <tr>
+                      <th style="width:10px;">#</th>
+                      <th style="width:90px;" class="c">MONTH</th>
+                      <th style="width:90px;" class="c">RECEIVED</th>
+                      <th style="width:90px;" class="c">SUBMITTED</th>
+                      <th style="width:90px;" class="c">RE-SUBMISSION</th>
+                      <th style="width:100px;" class="c"></th>
+                  </tr>
+              </thead>
+              <tbody id="LoadReportList">
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>    
+</div>
+<div class="col-md-4">
+<div class="card card-outline card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fa fa-list"></i> Quarterly Reports</h3>
+
+                <!--div class="card-tools">
+                  <button type="button" class="btn btn-tool">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div-->
+                <!-- /.card-tools -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+
+<div class="card-footer p-0">
+                <ul class="nav flex-column" id="QuartsList">
+                </ul>
+              </div>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+</div>
+<style>
+.pull-right-manual {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}  
+</style>          
+<script>
+  $(function(){ $('.input-date').daterangepicker({ showDropdowns:true, singleDatePicker: true, format: 'YYYY-MM-DD' }); });
+  $(function(){ GetSummaryList(); $('.knob').knob(); });
+//====================================================================================================================
+  function GetSummaryList(){
+        
+    $.ajax({
+      url: "{% url 'get-summary-reports' %}",
+      type: "post",
+      data:{ SearchDateFrom : $("#SearchDateFrom").val(), SearchDateEnds : $("#SearchDateEnds").val(), StatusID:$("#StatusID").val() },
+      dataType: "json",
+      beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+      success: function(S){  
+        GetSummaryReports(S);
+        $('.new').val(S.count_per_status.new).trigger('change');
+        $('.rts').val(S.count_per_status.rts).trigger('change');
+        $('.dis').val(S.count_per_status.dis).trigger('change');
+        $('.app').val(S.count_per_status.app).trigger('change');
+        $('.sub').val(S.count_per_status.sub).trigger('change');
+      },
+      error: function(xhr, status, error){ 
+        console.error('AJAX Error:', status, error);
+        console.log('Response Text:', xhr.responseText);
+        Notiflix.Notify.Failure("Error processing...");
+        let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+        //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+      }
+    });
+  }
+//====================================================================================================================
+// REPORTS STARTS
+//====================================================================================================================
+$(document).on('click','.btn-createdit',function(){ 
+          const VItemID = this.id;
+          const VTransID = this.getAttribute("trans-id");
+          const modalElement = document.getElementById('myModal');
+  $.ajax({
+      url: "{% url 'modal-reports' %}",
+      type: "post",
+      data: { ItemID: VItemID, TransID: VTransID, csrfmiddlewaretoken: getCookie('csrftoken') },
+      success: function(content) {
+          $('#myModal').html(content);
+          $('#myModal').modal({ backdrop: 'static', keyboard: false });
+          $('#myModal').attr('class', 'modal fade bs-example-modal-lg').attr('aria-labelledby','myModalLabel');
+          $('.modal-dialog').attr('class','modal-dialog modal-lg');
+          // Re-initialize any dynamic components like the date picker
+          $('.input-date').daterangepicker({ showDropdowns: true, singleDatePicker: true, format: 'YYYY-MM-DD' });
+      },
+      error: function(xhr, status, error) {
+          console.error('AJAX Error:', status, error);
+          console.log('Response Text:', xhr.responseText);
+          Notiflix.Notify.Failure("Error processing...");
+      }
+  });
+
+}); 
+// The event handler from the first step is essential and must be outside the AJAX call.
+// This ensures it's registered once for the modal element and handles all close events.
+$('#myModal').on('hide.bs.modal', function () {
+    $('body > *:not(.modal)').removeAttr('inert');
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+});        
+//====================================================================================================================
+  $(document).on('click','.btn-saveupdate',function(){ 
+    const VItemID = this.id;
+    const VTransID = this.getAttribute("trans-id");
+    var form = $('#ReportsForm')[0];
+    var formData = new FormData(form);
+    var TxtBox = ['BatchNumber','DateStarts','DateEnds']; 
+    if(TxtBox.some(f => isEmptyLte(document.forms.ReportsForm[f], f, f))) return false;
+    $(".btn-saveupdate .fa").addClass('fa-spinner fa-spin');
+    $(".btn-saveupdate .fa").removeClass('fa-paper-plane');
+    $(".btn-saveupdate").addClass('disabled');
+//    Notiflix.Confirm.Show('Approval Confirmation', 'Want to approve '+VTransID+'?', 'Yes', 'No', 
+//	    function(){ 
+	        // Yes button callback alert('Thank you.'); 
+	      $.ajax({
+          url: "{% url 'create-reports' %}",
+			    type: "post",
+          data: formData,
+          dataType: "json",
+          contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+          processData: false, 
+          contentType: false,
+          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+          success: function(S){ 
+            GetSummaryList();
+            if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); }else{ Notiflix.Notify.Success(S.response_advise); 
+              $(".modal-save .fa").removeClass('fa-spinner fa-spin');
+              $(".modal-save .fa").addClass('fa-paper-plane');
+              $(".modal-save").removeClass('disabled');				
+			        $('#myModal').modal('toggle');
+              modalElement.setAttribute('aria-hidden', 'true');
+            }
+			    },
+			    error: function(xhr, status, error){ 
+            console.error('AJAX Error:', status, error);
+            console.log('Response Text:', xhr.responseText);
+            Notiflix.Notify.Failure("Error processing...");
+            let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : VItemID, TransID:VTransID, tblname:"dopnpki.SummaryReport", UriSegmentLoc:"create-reports", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });
+          }
+		    });
+		                        
+//		    },
+//		    function(){ /* No button callback alert('If you say so...'); */ }
+//	  );
+           
+  }); 
+//====================================================================================================================
+  function GetSummaryReports(S){
+    // Clear the table body first
+    $("#LoadReportList").empty();
+    $("#QuartsList").empty();
+
+    // Check if the rtplist array is empty or not defined
+    if (S.rtplist && S.rtplist.length > 0) {
+        // Loop through the list of reports in the JSON response
+        $.each(S.rtplist, function (index, item) {
+          const getCountText = (count) => (count === 0 ? '--' : count);
+    
+            // Build the table row dynamically using the data
+            var newRow = '<tr id="trow' + item.id + '" style="font-size:12px;" class="c">' +
+                '<td class="index" class="l" style="text-align:left;">' + (index + 1) + '.</td>' +
+                '<td class="l">' + item.BatchNumber + '</td>' +
+                '<td>' + getCountText(item.approved_cnt) +'</td>' +
+                '<td>' + getCountText(item.submitted_cnt) +'</td>' +
+                '<td>' + getCountText(item.re_submitted_cnt) + '</td>' +
+                '<td>' + //class="project-actions text-right"
+                '<div class="pull-right">' +
+                '  <a class="btn btn-xs btn-info btn-flat btn-list-report" href="javascript:void(0)" start-date="'+item.DateStarts+'" ends-date="'+item.DateEnds+'"><i class="fa fa-list"></i></a>' +
+                '  <a class="btn btn-xs btn-success btn-flat btn-createdit" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ReportID + '"><i class="fas fa-pencil-alt"></i></a>' +
+                '  <a class="btn btn-xs btn-dark btn-flat btn-delete" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ReportID + '"><i class="fa fa-trash"></i></a>' +
+                '</div>' +
+                '</td>' +
+                '</tr>';
+                
+            // Append the new row to the table body
+            $("#LoadReportList").append(newRow);
+        });
+    } else {
+        // Append the "no record found" row to the table body
+        var noDataRow = '<tr><td colspan="6" class="c i"><p>No record found.</p></td></tr>';
+        $("#LoadReportList").append(noDataRow);
+    }
+//
+        
+        $.each(S.rptquart, function (index, item) {
+            // Build the table row dynamically using the data
+            var newRow = '<li class="nav-item">' +
+                ' <a href="'+item.print_view_url+'" target="_blank"  class="nav-link">' +
+                '   <i class="fa fa-download"></i> '+item.Description+'<span class="float-right badge bg-warning">'+item.qrt_cnt+'</span>' +
+                ' </a>' +
+                '</li>';
+                
+            // Append the new row to the table body
+            $("#QuartsList").append(newRow);
+        });
+
+  }  
+//====================================================================================================================
+// REPROTS EDNS  
+//====================================================================================================================
+	function isValidEmail(frmField,fldId,fldName) {
+
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let EmailAddress = $('#'+fldId).val().trim();
+        let emailValid = re.test(EmailAddress);
+        
+        if(!emailValid && EmailAddress !== ''){ 
+            $("#Grp"+fldId).addClass('has-error'); 
+            Notiflix.Notify.Failure('Valid Email Address id required..'); 
+            document.getElementById(fldId).autofocus;
+            return true; 
+        }else{ $('#GrpEmailAddress').removeClass('has-error'); }
+        return false;
+    }  
+//====================================================================================================================
+  $(document).on('click','.btn-delete',function(){ 
+    const VItemID = this.id;
+    const VTransID = this.getAttribute("trans-id");
+
+    console.log('VItemID :'.VItemID)
+
+    Notiflix.Confirm.Show('Remove Confirm', 'Want to delete '+VTransID+'?', 'Yes', 'No', 
+      function(){ 
+        // Yes button callback alert('Thank you.'); 
+        $.ajax({
+          url: "{% url 'remove-summary' %}",
+          type: "post",
+          data:{ ItemID : VItemID, TransID:VTransID },
+          dataType: "json",
+          beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+          success: function(S){  //S.applicants
+            if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); 
+            }else{ Notiflix.Notify.Success(S.response_advise); $("#trow"+VItemID).remove(); $('td.index').html(function(i){ return i + 1; }); }
+          },
+          //error:function(){ Notiflix.Notify.Failure('Removing Failed..'); }   
+          error: function(xhr, status, error){ 
+            console.error('AJAX Error:', status, error);
+            console.log('Response Text:', xhr.responseText);
+            Notiflix.Notify.Failure("Error processing...");
+            let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+            $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : VItemID, TransID:VTransID, tblname:"pnpki_application", UriSegmentLoc:"pnpki/data_remove", log: errorLog }, dataType: "json",
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+            });
+          }
+        });         
+      },
+      function(){ /* No button callback alert('If you say so...'); */ }
+	  );      
+  });
+//====================================================================================================================
+    // Function to format a Date object into YYYY-MM-DD string
+    function formatToYMD(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    $(document).on('change', '.option-month', function() {
+      const monthSelect = document.getElementById('BatchNumber');
+      const month = parseInt(monthSelect.value)-1; // If January is selected, month is 0
+
+      // Exit if no month is selected
+      if (monthSelect.value === "") {
+        document.getElementById('DateStarts').value = "";
+        document.getElementById('DateEnds').value = "";
+        return;
+      }
+
+      const year = new Date().getFullYear();
+
+      // Get the start date of the selected month (e.g., 2025-01-01)
+      const startDate = new Date(year, month, 1);
+
+      // Get the end date of the selected month (e.g., 2025-01-31)
+      const endDate = new Date(year, month + 1, 0);
+
+      // Display the formatted dates using the helper function
+      document.getElementById('DateStarts').value = formatToYMD(startDate);
+      document.getElementById('DateEnds').value = formatToYMD(endDate);
+    });
+
+//====================================================================================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('HSearchInput');
+        const table = document.getElementById('TblReportsList');
+        const rows = table.getElementsByTagName('tr');
+
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+
+            for (let i = 1; i < rows.length; i++) { // Start from 1 to skip header row
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    let cellText = cells[j].textContent.toLowerCase();
+                    if (cellText.includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    row.style.display = ''; // Show row
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            }
+        });
+    }); 
+//====================================================================================================================
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== ''){
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) { cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); break; }
+      }
+    }
+    return cookieValue;
+  }
+//====================================================================================================================
+	function isEmptyCheck(frmField,fldId,fldName) {
+        //document.getElementById(fldId).required = true;
+        if(document.getElementById(fldId).checked==false){
+            document.getElementById(fldId).autofocus;
+            Notiflix.Notify.Failure('Required.. Data Privacy (Consent/Agreement).');
+            $("#Grp"+fldId).addClass('has-error');
+            $(".fa-square-o").addClass('has-error');
+            //frmField.focus(); 
+            return true; 
+        }else{
+            $("#Grp"+fldId).removeClass('has-error');
+            $(".fa-square-o").removeClass('has-error');
+        }
+        return false;
+    }
+ //====================================================================================================================   
+    $(document).on('click','.btn-list-report',function(){ 
+      
+      const StartDate = this.getAttribute("start-date");
+      const EndsDate = this.getAttribute("ends-date");
+
+          $.ajax({
+			      url: "{% url 'applicationreport' %}",
+			      type: "post",
+			      data:{ SearchDateFrom : StartDate, SearchDateEnds : EndsDate, StatusID : $("#StatusID").val(), csrfmiddlewaretoken:getCookie('csrftoken') },
+			      dataType: "json",
+            //beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+			      success: function(S){  //S.applicants
+              window.open(S.redirect_url,'_blank');
+            },
+			      error: function(xhr, status, error){ 
+              console.error('AJAX Error:', status, error);
+              console.log('Response Text:', xhr.responseText);
+              Notiflix.Notify.Failure("Error processing...");
+              let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+              //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+            }
+		      });      
+      //url = "{% url 'applicationreport' %}?token="+getCookie('csrftoken')+"&datefrom="+$("#SearchDateFrom").val();
+      //window.open(url,'_blank');
+    });
+ //========================================================================================================================================================   
+</script>          
+    {% endblock %}

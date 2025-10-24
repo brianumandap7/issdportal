@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+  {% load static %}
+<html lang="en" class="app js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 no-ios no-ios7 ipad">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>{{ ProjectName }} : {% block title %}My Site{% endblock %}</title>
+    	<link rel="SHORTCUT ICON" href="{% static '/img/dotr-logo.png' %}"/>
+			<meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"> 
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+			<link href="{% static 'jasb/flatfull/jasb-47a282dfe68a42d302e22c4920ed9b5e.css' %}" type="text/css" rel="stylesheet"> 
+			<link href="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.css' %}" type="text/css" rel="stylesheet">
+			<link href="{% static 'jasb/flatfull/jasb-588cb345a2594d978deadf3be9af9fa4.css' %}" type="text/css" rel="stylesheet">
+			 
+			<!--[if lt IE 9]> 
+			<script src="js/ie/html5shiv.js"></script> 
+			<script src="js/ie/respond.min.js"></script>
+			<script src="js/ie/excanvas.js"></script> 
+			<![endif]-->
+
+			<!--ForNormalPages-->
+				<!-- Font Awesome Icons -->
+                <link href="{% static 'jasb/lte/css/jasb-fcad2de79d7c7cba899c914ad1fa2906.css' %}" rel="stylesheet" type="text/css"/>
+                <!-- Ionicons -->
+                <link href="{% static 'jasb/lte/css/jasb-7b59c600dec94c7764f9088be40d321b.css' %}" rel="stylesheet" type="text/css"/>
+
+				<!-- Theme style -->
+				<link href="{% static 'jasb/lte/css/jasb-7a02c266d18ae0949561789954e40efe.css' %}" rel="stylesheet" type="text/css" />
+				<!-- AdminLTE Skins. Choose a skin from the css/skins 
+					folder instead of downloading all of them to reduce the load. -->
+				<link href="{% static 'jasb/lte/css/jasb-179c5b6a96bcc9c9b27fca4303e8dbb0.css' %}" rel="stylesheet" type="text/css" />
+			<!--ForNormalPages-->
+
+                <!-- Notiflix -->	
+                <link href="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.css' %}" rel="stylesheet" >
+                <script src="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.js' %}" type="text/javascript"></script> 
+	
+                <!--JasbJS-->
+                <script src="{% static 'jasb/common/jasb-90ccf32eaae9ae5a6f5bccd98b1145ef.js' %}" type="text/javascript"></script> 
+                <script src="{% static 'jasb/common/jasb-b59714ab5055a284016d822ee97be029.js' %}" type="text/javascript"></script>
+                <script src="{% static 'jasb/common/jasb-58823a72f02f2baf89eee052972e0ea4.js' %}" type="text/javascript"></script>
+
+<style>
+
+/* vietnamese */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url("{% static 'jasb/lte/fonts/toadOcfmlt9b38dHJxOBGD_j0nMiB9fPhg_k1wdK2h0.woff2' %}") format('woff2');
+  unicode-range: U+0102-0103, U+1EA0-1EF1, U+20AB;
+}
+
+      .example-modal .modal {
+        position: relative;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        left: auto;
+        display: block;
+        z-index: 1;
+      }
+      .example-modal .modal {
+        background: transparent!important;
+      }
+      
+      .modal-dialog{ margin-top:60px;}
+
+	.b{ font-weight: bold; }
+	.c{ text-align: center; }
+	.r{ text-align: right; }
+	.i{ font-style: italic;}
+	.u{ text-decoration:underline; }
+	.alCaps{ text-transform: uppercase; }
+	.cpointer{ cursor:pointer; }
+	.pad-bot{ padding-bottom:5px; }
+	.font-tre{ font-family:"Trebuchet MS";}
+	.font-twe{ font-size:12px;}
+	.v{ vertical-align:middle; }
+
+	        .avatar img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;         /* Ensures image covers the span */
+          border-radius: 50%;        /* Also make the image itself circular */
+        }
+
+    </style>
+		
+	</head>
+	<body> 
+    
+	<section class="vbox"> 
+	<!-- /.header --> 
+        {% include 'base/note_header.html' %}
+	<!-- /.header -->
+			<section>
+				<section class="hbox stretch">
+					<section id="content"> 
+								{% block content %}{% endblock %}
+					</section> 
+				</section>
+			</section> 
+	</section> 
+	
+		<script src="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.js' %}"></script> 
+		<script src="{% static 'jasb/flatfull/jasb-96d4465ee762461790c415fe5e29a4a6.js' %}"></script>
+		<script src="{% static 'jasb/flatfull/jasb-588cb345a2594d978deadf3be9af9fa4.js' %}"></script>
+    
+        <!-- DatePicker -->
+        <script src="{% static 'jasb/daterangepicker/jasb-a41a76dd1bee993ae432d7682d893051.js' %}"></script>
+        <script src="{% static 'jasb/daterangepicker/jasb-b50b2c0167f807749c1431cbf6bd6a0a.js' %}"></script>
+
+<!-- Modal form-->
+<div class="modal fade" id="myModal" style="padding-top:50px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div class="modal fade" id="myModalOver" style="padding-top:50px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabelOver" aria-hidden="true"></div>
+<div class="modal fade" id="myModalPopOver" style="padding-top:50px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabelPopOver" aria-hidden="true"></div>
+<!-- end of modal -->
+	</body>
+</html>

@@ -1,0 +1,221 @@
+    {% extends 'base/lte_base.html' %}
+    {% load static %}
+
+    {% block title %}Employee Mangement{% endblock %}
+    {% block content-header %}Employee Mangement{% endblock %}
+    {% block breadcrumb %}Employee Mangement{% endblock %}
+    
+    {% block content %}
+
+<div class="col-lg-12">
+  <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- The title on the left -->
+          <div>
+            <h3 class="card-title mb-0" style="font-size: 20px;">
+              <i class="fa fa-list"></i> Employee List
+            </h3>
+          </div>
+          <!-- The search/filter elements on the right -->
+          <div class="row input-group col-lg-7 col-md-9 col-xs-9">
+            <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateFrom" value="{% now 'Y-m-d' %}" type="search" placeholder="Date From" title="Date From">
+            <input class="form-control col-xs-4 form-control-sm input-date c" id="SearchDateEnds" value="{% now 'Y-m-d' %}" type="search" placeholder="Date End" title="Date End">
+            <select class="form-control form-control-sm" id="StatusID" name="StatusID">
+              <option value="">---</option>
+              {% for S in statusname %}
+              <option value="{{ S.id }}"> {{ S.Description }}</option>
+              {% endfor %}
+            </select>
+            <div class="input-group-append">
+              <a href="#" class="btn btn-sm btn-default btn-flat" onclick="GetEmployeeList()"><i class="fa fa-search"></i> Search</a>
+              <a href="#" class="btn btn-sm btn-success btn-flat btn-createdit" id="" trans-id=""><i class="fa fa-plus"></i> Create</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--div class="card-body p-0 table-responsive">
+        <table id="TblApplicantList" class="v-align-table table table-striped table-sm table-container table-hover" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+          <thead>
+            <tr class="c">
+              <th style="width: 10px;">#</th>
+              <th style="width: 100px;">SYSTEM&nbsp;ID</th>
+              <th>FIRST&nbsp;NAME</th>
+              <th>LAST&nbsp;NAME</th>
+              <th>EMAIL&nbsp;ADDRESS</th>
+              <th>OFFICE/DIVISION</th>
+              <th>DIVISION/SECTION/UNIT</th>
+              <th>STATUS</th>
+              <th style="padding-left: 40px;" class="r">ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="LoadEmployeeList"></tbody>
+        </table>
+      </div-->
+  </div>  
+</div>
+
+<div class="container-fluid">
+  <div class="row" id="LoadEmployeeGrid"></div>
+</div>
+<script>
+    $(function(){ $('.input-date').daterangepicker({ showDropdowns:true, singleDatePicker: true, format: 'YYYY-MM-DD' }); });
+    $(function(){ GetEmployeeList(); });
+//====================================================================================================================
+    $(document).on('click','.btn-createdit',function(){ 
+            const VItemID = this.id;
+            const VTransID = this.getAttribute("trans-id");
+            const modalElement = document.getElementById('myModal');
+        $.ajax({
+            url: "{% url 'modal-employee' %}",
+            type: "post",
+            data: { ItemID: VItemID, TransID: VTransID, csrfmiddlewaretoken: getCookie('csrftoken') },
+            success: function(content) {
+                $('#myModal').html(content);
+                $('#myModal').modal({ backdrop: 'static', keyboard: false });
+                $('#myModal').attr('class', 'modal fade bs-example-modal-lg').attr('aria-labelledby','myModalLabel');
+                $('.modal-dialog').attr('class','modal-dialog modal-lg');
+                // Re-initialize any dynamic components like the date picker
+                $('.input-date').daterangepicker({ showDropdowns: true, singleDatePicker: true, format: 'YYYY-MM-DD' });
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                console.log('Response Text:', xhr.responseText);
+                Notiflix.Notify.Failure("Error processing...");
+            }
+        });
+
+    });
+//====================================================================================================================
+  $(document).on('click','.btn-saveupdate',function(){ 
+    const VItemID = this.id;
+    const VTransID = this.getAttribute("trans-id");
+    var form = $('#EmlployeeForm')[0];
+    var formData = new FormData(form);
+    var TxtBox = ['FirstName','LastName','MiddleName','DivisionID','UnitSectionID','PositionID','SalaryGradeID'];//,'SalaryStepID' 
+    if(TxtBox.some(f => isEmptyLte(document.forms.EmlployeeForm[f], f, f))) return false;
+    $(".btn-saveupdate .fa").addClass('fa-spinner fa-spin');
+    $(".btn-saveupdate .fa").removeClass('fa-paper-plane');
+    $(".btn-saveupdate").addClass('disabled');          
+	    $.ajax({
+            url: "{% url 'create-employee' %}",type: "post",data: formData,dataType: "json",
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',processData: false,contentType: false,
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+            success: function(S){ 
+                GetEmployeeList();
+                if(S.Notflix=='Failure'){ Notiflix.Notify.Failure(S.response_advise); }else{ Notiflix.Notify.Success(S.response_advise); 
+                    $(".modal-save .fa").removeClass('fa-spinner fa-spin');
+                    $(".modal-save .fa").addClass('fa-paper-plane');
+                    $(".modal-save").removeClass('disabled');				
+                    $('#myModal').modal('toggle');
+                    modalElement.setAttribute('aria-hidden', 'true');
+                }
+			},
+			error: function(xhr, status, error){ 
+                console.error('AJAX Error:', status, error);
+                console.log('Response Text:', xhr.responseText);
+                Notiflix.Notify.Failure("Error processing...");
+                let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+                $.ajax({ url: "{% url 'errorlogs' %}",type: "post", data:{ ItemID : VItemID, TransID:VTransID, tblname:"dopnpki.SummaryReport", UriSegmentLoc:"create-reports", log: errorLog }, dataType: "json",
+                beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); }
+                });
+            }
+		  });
+
+  }); 
+//====================================================================================================================
+  function GetEmployeeList(){
+        
+    $.ajax({
+      url: "{% url 'list-employee' %}",
+      type: "post",
+      data:{ SearchDateFrom : $("#SearchDateFrom").val(), SearchDateEnds : $("#SearchDateEnds").val(), StatusID:$("#StatusID").val() },
+      dataType: "json",
+      beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+      success: function(S){ GetRowList(S); GetGridList(S); },
+      error: function(xhr, status, error){ 
+        console.error('AJAX Error:', status, error);
+        console.log('Response Text:', xhr.responseText);
+        Notiflix.Notify.Failure("Error processing...");
+        let errorLog = ['Status: ' + status,'Error: ' + error,'Response: ' + xhr.responseText].join('\n');
+        //$.post("url", { TransactionID:$("#ClientID").val() ,UriSegmentLoc:"transactions/deletetrans", log: errorLog });
+      }
+    });
+  }  
+//====================================================================================================================
+  function GetRowList(S){
+      // Clear the table body first
+    $("#LoadEmployeeList").empty();
+    
+    // Check if the emplist array is empty or not defined
+    if (S.emplist && S.emplist.length > 0) {
+        // Loop through the list of reports in the JSON response
+        $.each(S.emplist, function (index, item) {
+          const getCountText = (count) => (count === 0 ? '--' : count);
+    
+            // Build the table row dynamically using the data
+            var newRow = '<tr id="trow' + item.id + '" style="font-size:12px;">' +
+                '<td class="index" class="l" style="text-align:left;">' + (index + 1) + '.</td>' +
+                '<td class="l">' + item.SystemID + '</td>' +
+                '<td>' + item.FirstName.toUpperCase() +'</td>' +
+                '<td>' + item.LastName.toUpperCase() +'</td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td>' + //class="project-actions text-right"
+                '<div class="pull-right">' +
+                '  <a class="btn btn-xs btn-info btn-flat btn-list-report" href="javascript:void(0)" start-date="'+item.DateStarts+'" ends-date="'+item.DateEnds+'"><i class="fa fa-list"></i></a>' +
+                '  <a class="btn btn-xs btn-success btn-flat btn-createdit" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ReportID + '"><i class="fas fa-pencil-alt"></i></a>' +
+                '  <a class="btn btn-xs btn-dark btn-flat btn-delete" href="javascript:void(0)" id="' + item.id + '" trans-id="' + item.ReportID + '"><i class="fa fa-trash"></i></a>' +
+                '</div>' +
+                '</td>' +
+                '</tr>';
+                
+            $("#LoadEmployeeList").append(newRow);
+        });
+    } else {
+        var noDataRow = '<tr><td colspan="9" class="c i"><p>No record found.</p></td></tr>';
+        $("#LoadEmployeeList").append(noDataRow);
+    }
+  }
+//====================================================================================================================
+  function GetGridList(S){
+      // Clear the table body first
+    $("#LoadEmployeeGrid").empty();
+    
+    // Check if the emplist array is empty or not defined
+    if (S.emplist && S.emplist.length > 0) {
+      const avatarUrl = "{% static 'img/avatar_default.jpg' %}";
+        // Loop through the list of reports in the JSON response
+        $.each(S.emplist, function (index, item) {
+          const getCountText = (count) => (count === 0 ? '--' : count);
+    
+            // Build the table row dynamically using the data
+            var newRow = '<div class="col-sm-3 col-md-2 col-lg-2">' +
+                ' <div class="card card-success card-outline">' +
+                '   <div class="card-body box-profile">' +
+                '    <div class="text-center">' +
+                '      <img class="profile-user-img img-fluid img-circle" src="'+avatarUrl+'" alt="User profile picture">' +
+                '    </div>' +
+                '    <h3 class="profile-username text-center">'+ item.LastName.toUpperCase() +'</h3>' +
+                '    <p class="text-muted text-center">'+ item.FirstName.toUpperCase() +'</p>' +
+                '    <a href="#" class="btn btn-sm btn-primary btn-block"><b>' + item.SystemID + '</b></a>' +
+                '   </div>' +
+                ' </div>' +
+                '</div>';
+                
+            // Append the new row to the table body
+            $("#LoadEmployeeGrid").append(newRow);
+        });
+    } else {
+        // Append the "no record found" row to the table body
+        var noDataRow = '<p class="col-md-12">No record found.</p>';
+        $("#LoadEmployeeGrid").append(noDataRow);
+    }
+  }
+//====================================================================================================================
+</script>
+
+    {% endblock %}

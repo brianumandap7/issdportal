@@ -1,0 +1,163 @@
+{% extends "basetemp/main_base.html" %}
+{% load static %}
+{% block content %} 
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Welcome, {{user.get_full_name}}!</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+    <!-- Main content -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>1</h3>
+              <p>Submitted</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-check-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <p>Bounce Rate</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>44</h3>
+              <p>User Registrations</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6">
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>65</h3>
+              <p>Unique Visitors</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+<!-- /.content-wrapper -->
+           <!-- Submission Table -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Submission Status</h3></div>
+          <div class="card-body table-responsive">
+          <div style="border-top: 3px solid #194675; padding-top: 10px;">
+            <table class="table table-bordered table-hover text-center" >
+              <thead>
+                <tr>
+                  <th>ISSP</th>
+                  <th>Date of Call for Submission</th>
+                  <th>Submission Date</th>
+                  <th>Status</th>
+                  <th>Link to File</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2027-2029</td>
+                  <td>08 September 2025</td>
+                  <td>08 September 2025</td>
+                  <td><span class="badge badge-success">Submitted</span></td>
+                  <td>
+                    <a href="https://www.google.com" target="_blank">ISSP 2027-2029</a>
+                  </td>
+                  <td><button class="btn btn-sm btn-info" data-toggle="collapse" data-target="#details1">View</button></td>
+               <tr class="collapse" id="details1">
+                  <td colspan="7" class="text-left bg-light">
+                 <p><strong>Detailsssssss:</strong></p>
+                 <p>table, table</p>
+                 <img src="images.png" alt="ISSP 2027-2029" class="img-fluid mb-2">
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-2026 Amendment (v2) </td>
+                  <td>08 September 2025</td>
+                  <td>08 September 2025</td>
+                  <td><span class="badge badge-info">Ongoing</span></td>
+                  <td>
+                    <a href="https://www.google.com" target="_blank">ISSP 2024-2026 (v2)</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-2026 Amendment (v1)</td>
+                  <td>08 September 2025</td>
+                  <td>08 September 2025</td>
+                  <td><span class="badge badge-danger">Pending</span></td>
+                  <td>
+                    <a href="https://www.google.com" target="_blank">ISSP 2024-2026 (v1)</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2021-2023 Amendment (v2)</td>
+                  <td>08 September 2025</td>
+                  <td>08 September 2025</td>
+                  <td><span class="badge badge-danger">Pending</span></td>
+                  <td>
+                    <a href="https://www.google.com" target="_blank">ISSP 2021-2023 (v2)</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2021-2023 Amendment (v1)</td>
+                  <td>08 September 2025</td>
+                  <td>08 September 2025</td>
+                  <td><span class="badge badge-danger">Pending</span></td>
+                  <td>
+                    <a href="https://www.google.com" target="_blank">ISSP 2021-2023 (v1)</a>
+                  </td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </section>
+  </div>
+{% endblock content %}

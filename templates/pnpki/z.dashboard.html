@@ -1,0 +1,95 @@
+    {% extends 'base/note_dashboard.html' %}
+    {% load static %}
+
+    {% block title %}Dashboard{% endblock %}
+    {% block content-header %}Dashboard{% endblock %}
+    {% block breadcrumb %}Dashboard Panel{% endblock %}
+    
+    {% block content %}
+<section class="vbox">
+        <section class="scrollable padder">
+                <ul class="breadcrumb no-border no-radius b-b b-light pull-in"> 
+                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li> 
+                        <li class="active">Dashboard</li> 
+                </ul>
+		<div class="m-b-md">
+			<h3 class="m-b-none">Dashboard</h3> 
+			<small>Control Panel</small>
+		</div>
+        <div class="row">  
+		<!---->
+  <div class="col-md-4 not-active disabled" style="cursor:pointer;" onclick="location.href=''">
+		<div class="small-box bg-default"><!--orange-->
+		        <div class="inner">
+		          <h3>PDS</h3>
+		          <p style="font-size:14px;">My Account : Personal Data Sheet</p>
+		        </div>
+		        <div class="icon">
+		          <i class="ion ion-person"></i>
+		        </div>
+		        <a href="" class="small-box-footer">
+		        	More info <i class="fa fa-arrow-circle-right"></i>
+		        </a>   
+		</div>
+    <div class="overlay"><!--i class="fa fa-refresh fa-spin"></i--></div>  
+  </div>    
+
+  <div class="col-md-4 btn-pnpki" style="cursor:pointer;">
+		<div class="small-box bg-yellow">
+		        <div class="inner">
+		          <h3>PNPKI</h3>
+		          <p style="font-size:14px;">Philippine National Public Key Infrastructure</p>
+		        </div>
+		        <div class="icon">
+		          <i class="fa fa-solid fa-key"></i>
+		        </div>
+		        <a href="" class="small-box-footer">
+		        	More info <i class="fa fa-arrow-circle-right"></i>
+		        </a>   
+		</div>
+    <div class="overlay"><!--i class="fa fa-refresh fa-spin"></i--></div>  
+  </div>
+
+  <div class="col-md-4" style="cursor:pointer;" onclick="location.href=''">
+		<div class="small-box bg-green">
+		        <div class="inner">
+		          <h3>SPMS</h3>
+		          <p style="font-size:14px;">Strategic Performance Management System</p>
+		        </div>
+		        <div class="icon">
+		          <i class="fa fa-clipboard"></i>
+		        </div>
+		        <a href="" class="small-box-footer">
+		        	More info <i class="fa fa-arrow-circle-right"></i>
+		        </a>   
+		</div>
+    <div class="overlay"><!--i class="fa fa-refresh fa-spin"></i--></div>  
+  </div>          
+		<!---->
+          </div>
+        </section>
+</section>
+
+<style>
+.not-active{ pointer-events: none; cursor: default; }
+.darkred{ color:darkred; }
+.darkgreen{ color:darkgreen; }
+</style>
+<script>
+//========================================================================================================================================================
+	$(document).on('click','.btn-pnpki',function(){ window.open("{% url 'applicants' %}",'_SELF'); });
+
+    function getCookie(name) {
+    	let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) { cookieValue = decodeURIComponent(cookie.substring(name.length + 1)); break; }
+            }
+        }
+        return cookieValue;
+    }
+//========================================================================================================================================================
+</script>          
+    {% endblock %}

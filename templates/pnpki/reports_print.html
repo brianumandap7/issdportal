@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
+    <meta charset="UTF-8">
+    <title>DOTR-MIS : PNPKI - SUMMARY REPORTS</title>
+	  <link rel="SHORTCUT ICON" href="{% static '/img/dotr-logo.png' %}"/>      
+	  
+    <script src="{% static 'jasb/printing/jasb-a6a79212580be5cdcf51577c27afdd30.js' %}"></script>
+
+    <link href="{% static 'jasb/printing/jasb-47a282dfe68a42d302e22c4920ed9b5e.css' %}" rel="stylesheet" type="text/css"> 
+    <!-- Font Awesome Icons -->
+    <link href="{% static 'jasb/printing/jasb-fcad2de79d7c7cba899c914ad1fa2906.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Normalize or reset CSS with your favorite library -->
+    <link href="{% static 'jasb/printing/jasb-730bfa378b905ab806a3e0a03a170835.css' %}" rel="stylesheet" type="text/css">
+    <!-- Load paper.css for happy printing -->
+    <link href="{% static 'jasb/printing/jasb-7e3f660480ab1640de8024c200b5a4d3.css' %}" rel="stylesheet" type="text/css">
+
+	  <link href="{% static 'jasb/printing/jasb-179c5b6a96bcc9c9b27fca4303e8dbb0.css' %}" rel="stylesheet" type="text/css" />
+
+    <!--QRCode-->
+    <script src="{% static 'jasb/printing/QRCode/jasb-4441cd7e6b665842bd3d8b390dd9c3aa.js' %}" type="text/javascript"></script>
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <!--style>@page { size: Legal }</style-->
+</head>
+
+<!-- Set "A5", "A4" or "A3" for class name
+A4 := 210 mm × 297 mm
+A5 := 148 mm × 210 mm
+Executive := 7.25 inches × 10.5 inches
+Letter := 8.5 inches x 11 inches
+Legal := 8.5 inches x 14 inches 215.9mm x 330.2mm
+A4 := 8.27 × 11.69 inches
+
+so at 200 dpi:
+
+A4 = 1654 pixels x 2339 pixels
+A5 = 1165 pixels x 1654 pixels
+Executive = 1450 pixels x 2100 px
+Letter = 1700 pixels x 2200 pixels
+Legal = 1700 pixels x 2800 pixels
+
+ -->
+<!-- Set also "landscape" if you need -->
+<style>
+   /*@page{ margin:none; size: 8.5in 13in;} /*size:US-Folio;*/
+  .text-blue{ font-family:Arial; color:#0787e4; font-size:12px; }
+	.paddingtd{ padding:3px; font-family:'Trebuchet MS';  font-size:12px; vertical-align: text-top; }
+	.paddingttdm{ padding:5px; font-family:'Trebuchet MS';  font-size:11px; vertical-align: middle; height:23px; }
+	.paddingttdr{ padding:5px; font-family:'Trebuchet MS';  font-size:10px; vertical-align: middle;}
+	.b{ font-weight: bold; }
+	.c{ text-align: center; }
+	.r{ text-align:right; }
+  .l{ text-align:left; }
+	.i{ font-style:italic;}
+	.u{ text-decoration:underline; }
+  .v{ vertical-align:middle; }
+  .vlr{ writing-mode: vertical-rl; transform: rotate(180deg); text-orientation: sideways; text-align:center; text-orientation: sideways; }
+  .pull-left{ float: left !important; }
+  .pull-right { float: right !important; }
+  .class{ float:left; }  
+  @media screen and (min-width: 0px) { .class { float: none; margin: 0 auto; } }
+    
+</style>
+<!---->
+<style>
+    table { font-family:"Trebuchet MS"; }
+    caption{ font-size:25px; font-weight: bold;  }
+    .tdrsv{ font-size:8.5px; padding:1px; border:1px solid #000; }
+    .header{ 
+      background-color:lightgrey; height:23px; 
+      border:2px solid #000; border-bottom:2px solid #000; border-left:2px solid #000; border-right:2px solid #000; 
+    }   
+    .day{ 
+      height:130px; width:150px; vertical-align:top; padding:2px;
+      border:1px solid #000; border:2px solid #000; border-left:2px solid #000; border-right:2px solid #000; 
+    }  
+</style>
+<style>
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+/* Main content */
+.main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+#myBar {
+  width: 10%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white; 
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+/* Styles for even rows */
+.table-striped tr:nth-child(even){ background-color: #f2f2f2; } /* A light gray background */
+/* Or, styles for odd rows */
+.table-striped tr:nth-child(odd){ background-color: #ffffff; } /* A white background */
+th, td{ padding:3px; }
+
+</style>   
+<body class="A4" style="font-size:12px;">
+<div class="navbar" style="font-family:Trebuchet MS;">
+  <a href="{% url 'applicants' %}">Home</a>
+  <!--a href="#status" class="pull-right" style="width:100px;" id="LoadingStatus"></a-->
+  <a href="#printing" class="pull-right" id="ProgessStatus"  onClick="PrintDiv('LoadPrintData')" title="Click to Save And Print!!"><span>Print</span></a>
+</div>
+
+<div class="main">
+  <p>Some text some text some text some text..</p>
+</div>
+<div id="LoadPrintData" name="LoadPrintData" align="center" style="width:100%;">
+
+{% if reports %}
+    {% for rpts in reports %}
+        {# Check if it is the first item or every 10th item to create a new table #}
+        {% if forloop.first or forloop.counter|divisibleby:30 %}
+            {# Close the previous table, but not on the first iteration #}
+            {% if not forloop.first %}
+                 </tbody>   
+            </table>
+
+        </td>
+      </tr>
+</table>
+    </article>
+</section>      
+            {% endif %}
+
+            {# Open a new table and include the header #}
+<section class="sheet padding-10mm" style="padding:25px;">
+    <article style="border:0px solid #080000; border-collapse:collapse; height:280mm; padding:0px;"><!--landscpe : 195mm-->
+<table width="100%" style="border:0px solid #000; border-collapse:collapse;"><!-- height:850px;-->
+    <tr>
+        <td style="vertical-align: top;">
+            <table width="100%" style="border:0px solid #000; border-collapse:collapse;">
+                <tr>
+                    <td colspan="3" align="left" style="padding: 2px;">
+                    <table>
+	                    <tr>
+		                    <td style="width:100px;" align="left">
+		                        <img src="{% static '/img/dotr_bp_logo.png' %}" style="width:180px; padding-right:10px; padding-bottom:5px;"></img>
+		                    </td>
+		                    <td style="padding-left:20px;" align="left">
+			                    <table style="font-size:20px;"> 
+			                        <tr><td>Republic of the Philippines</td></tr>
+			                        <tr><td class="b">DEPARTMENT OF TRANSPORTATION</td></tr>
+			                    </table>
+		                    </td>
+		                    <td style="width:100px;" align="right">
+		                                        <!--img src="'.base_url().'LoGo/mrt-logo_opt.png" style="width:110px;"></img-->
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="padding:2px;">
+                    <table>
+	                    <tr><td class="b c" style="font-size:20px;">PNPKI BULK APPLICATION</td></tr>
+                        <tr><td class="b c" style="font-size:18px;">SUMMARY REPORT</td></tr>
+                        <tr><td class="b c" style="font-size:16px;">{{ header_title }} </td></tr>
+                    </table>
+                    </td>
+                </tr>
+            </table>            
+            <table width="100%" class="table-striped" style="border:0px solid #000; border-collapse:collapse;" border="1">
+                <thead>
+                    <tr style="border:1px solid #000; background-color: #b8b6b6; height:22px;" class="b c">
+                        <th colspan="6" class="b c">PNPKI BULK APPLICATION SUMMARY FOR 2025</th>
+                    </tr>
+                    <tr style="border:1px solid #000; background-color: #8d8c8c; height:22px;" class="b c">
+                        <th style="width: 30px;">#</th>
+                        <th style="width: 100px;">MONTH</th>
+                        <th style="width: 100px;">APPLICATION</th>
+                        <th style="width: 100px;">SUB TO DICT</th>
+                        <th style="width: 100px;">DATE SUB</th>
+                        <th style="width: 150px;">FOR RE-SUBMISSION</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% endif %}
+        
+        {# Display the row for the current reports #}
+        <tr id="trow{{ rpts.id }}" style="border:1px solid #000; height:22px;">
+            <td class="index">{{ forloop.counter }}.</td>
+            <td>{{ rpts.BatchNumber }}</td>
+            <td class="c">{{ rpts.approved_cnt|default:"--" }}</td>
+            <td class="c">{{ rpts.submitted_cnt|default:"--" }}</td>
+            <td class="c">{{ rpts.SubmittedDate|date:'Y-m-d' }}</td>
+            <td class="c">{{ rpts.re_submitted_cnt|default:"--" }}</td>
+        </tr>
+
+        {# After the very last item, close the final table #}
+        {% if forloop.last %}
+
+        <tr class="b" style="border:1px solid #000; height:22px;">
+            <td colspan="2" class="r">TOTAL</td>
+            <td class="c">{{ total_app_cnt|default:"--" }}</td>
+            <td class="c">{{ total_sub_cnt|default:"--" }}</td>
+            <td></td>
+            <td class="c">{{ total_res_cnt|default:"--" }}</td>
+        </tr>
+
+            </tbody>   
+            </table>
+
+        </td>
+      </tr>
+</table>
+			<table  style="width:100%;" align="center">
+			        <tr>
+					<td><br><br></td>
+				</tr>
+				<tr>
+					<td style="padding:5px; vertical-align:top;">
+                        <table>
+                            <tr style="height:30px;"><td style="font-size:12px;" valign="top">Prepared by:</td></tr>
+                            <tr>
+                                <td>
+                                    <table style="border-collapse:collapse;">
+                                        <tr style="height:50px; font-size:12px;">
+                                            <td class="b c"  valign="bottom">RODERICK R. MALLANNAO</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="c" style="font-size:12px;padding:0px;">Information Systems Analyst II</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="c" style="font-size:12px;padding:0px;">Information Systems and Security Division</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+					</td>
+                    <td style="padding:5px; width:250px; vertical-align:top;">
+                        <table>
+                            <tr style="height:30px;"><td style="font-size:12px;" valign="top">Endorsed by:</td></tr>
+                            <tr>
+                                <td>
+                                    <table style="border-collapse:collapse;">
+                                        <tr style="height:50px; font-size:12px;"><td class="b c"  valign="bottom">MURFFY P. GOPEZ</td></tr>
+                                        <tr>
+                                            <td class="c" style="font-size:12px;padding:0px;">Information Technology Officer III</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="c" style="font-size:12px;padding:0px;">Information Systems and Security Division</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+				</tr>
+			</table>
+
+
+    </article>
+</section>      
+        {% endif %}
+
+    {% empty %}
+        <p>No reports found.</p>
+    {% endfor %}
+{% endif %}               
+              </tbody>   
+            </table>
+
+            
+
+        </td>
+      </tr>
+</table>
+    </article>
+</section>      
+</div>
+  </body>
+</html> 
+
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  const table = document.getElementById('myTable');
+  if (table) {
+    const tableHeight = table.offsetHeight;
+    console.log('The table height is: ' + tableHeight + 'px');
+    //alert('The table height is: ' + tableHeight + 'px');
+  } else {
+    console.log('Table not found.');
+  }
+});
+//==================================================================================================================================================================================
+        //$(function(){ $(".TotalPage").html('1'); });
+//==================================================================================================================================================================================
+	function PrInTMeNoW(){ window.print(); }
+//==================================================================================================================================================================================
+        function PrintDiv(divName) {
+             var printContents = document.getElementById(divName).innerHTML;
+             var originalContents = document.body.innerHTML;
+
+             document.body.innerHTML = printContents;
+             window.print();
+             document.body.innerHTML = originalContents;
+        }
+//===============================================================================================================================================================================
+        //var qrcode = new QRCode(document.getElementById("qrcode"),{width : 70, height : 70 });
+        //function makeCode(){ qrcode.makeCode('sasasa'); }
+        //makeCode();
+//==================================================================================================================================================================================
+</script>

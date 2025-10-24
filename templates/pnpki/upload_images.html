@@ -1,0 +1,60 @@
+    {% extends 'base/lte_base.html' %}
+    {% load static %}
+
+    {% block title %}PNPKI - Applicants List{% endblock %}
+    {% block content-header %}Applicants List{% endblock %}
+    {% block breadcrumb %}Applicants{% endblock %}
+    
+    {% block content %}
+<!--RUNNING-->  
+<div class="col-md-12">
+<form method="post" enctype="multipart/form-data" action="{% url 'upload_images' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload Images</button>
+</form>
+</div>
+<!--RUNNING-->
+<br><br><br><br>
+<div class="col-md-12">
+JQ:
+<!--input type="file" id="multiple-file-input" name="images" multiple-->
+    <div class="form-group">
+        <!-- <label for="customFile">Custom File</label> -->
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="multiple-file-input" name="images" multiple>
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+    </div>
+</div>
+<script>
+//========================================================================================================================================================            
+    $('#multiple-file-input').on('change', function() {
+        var formData = new FormData();
+        var files = $(this)[0].files;
+
+        for (var i = 0; i < files.length; i++) {
+            formData.append('images', files[i]); // 'images' should match your Django form field name
+        }
+
+        $.ajax({
+            //url: '/pnpki/upload-multiple-files/', // Your Django upload URL
+            url: '{% url "upload_multiple_files" %}', // Your Django upload URL
+            
+            type: 'POST',
+            data: formData,
+            processData: false, // Don't process the data
+            contentType: false, // Don't set content type
+            beforeSend: function(xhr) { xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); },
+            success: function(response) {
+                // Handle success response from Django
+                console.log('Files uploaded successfully:', response);
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error('Error uploading files:', error);
+            }
+        });
+    });
+</script>
+    {% endblock %}

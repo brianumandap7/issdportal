@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="{% static 'basetemp/favicondotr32.png' %}"/>
+  <title>ISSD Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'basetemp/logout_css.css' %}">
+
+</head>
+<body>
+  <div class="logout-container">
+    <i class="fas fa-sign-out-alt logout-icon"></i>
+    <div class="logout-message">
+      <h3>You’ve logged out successfully!</h3>
+      <p>Thank you for using the ISSD Portal. For security, please close your browser or log in again.</p>
+    </div>
+    <div class="logout-actions">
+      <a href="/"><i class="fas fa-sign-in-alt"></i> BACK TO LOGIN</a>
+    </div>
+  </div>
+</body>
+</html>

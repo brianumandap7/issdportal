@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
+    <meta charset="UTF-8">
+    <title>PNPKI - APPLICATION FOR DIGITAL CERTIFICATE</title>
+
+    <!-- Set page size here: A5, A4 or A3 -->
+    <!-- Set also "landscape" if you need -->
+    <!--style>@page { size: Legal }</style-->
+</head>
+<style>
+@page { margin: 0 }
+body { margin: 0 }
+.sheet {
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+/** Paper sizes **/
+body.A3           .sheet { width: 297mm; height: 419mm }
+body.A3.landscape .sheet { width: 420mm; height: 296mm }
+body.A4           .sheet { width: 210mm; height: 296mm }
+body.A4.landscape .sheet { width: 297mm; height: 209mm }
+body.A5           .sheet { width: 148mm; height: 209mm }
+body.A5.landscape .sheet { width: 210mm; height: 147mm }
+
+body.legal           .sheet { width: 215.9mm; height: 355.6mm; }
+body.legal.landscape .sheet { width: 355.6mm; height: 215.9mm; }
+
+body.Foolscap           .sheet { width: 203mm; height: 330mm; } 
+body.Foolscap.landscape .sheet { width: 330mm; height: 2019mm; }
+
+
+/** Padding area **/
+.sheet.padding-05px { padding: 5px; }
+.sheet.padding-10mm { padding: 10mm }
+.sheet.padding-15mm { padding: 15mm }
+.sheet.padding-20mm { padding: 20mm }
+.sheet.padding-25mm { padding: 25mm }
+
+/** For screen preview **/
+@media screen {
+  body { background: #e0e0e0 }
+  .sheet {
+    background: white;
+    box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
+    margin: 5mm;
+  }
+}
+
+/** Fix for Chrome issue #273306 **/
+@media print {
+           body.A3.landscape { width: 420mm }
+  body.A3, body.A4.landscape { width: 297mm }
+  body.A4, body.A5.landscape { width: 210mm }
+  body.A5                    { width: 148mm }
+}
+
+/****/
+
+</style>
+<!-- Set "A5", "A4" or "A3" for class name
+A4 := 210 mm × 297 mm
+A5 := 148 mm × 210 mm
+Executive := 7.25 inches × 10.5 inches
+Letter := 8.5 inches x 11 inches
+Legal := 8.5 inches x 14 inches 215.9mm x 330.2mm
+A4 := 8.27 × 11.69 inches
+
+so at 200 dpi:
+
+A4 = 1654 pixels x 2339 pixels
+A5 = 1165 pixels x 1654 pixels
+Executive = 1450 pixels x 2100 px
+Letter = 1700 pixels x 2200 pixels
+Legal = 1700 pixels x 2800 pixels
+
+ -->
+<!-- Set also "landscape" if you need -->
+ 
+<style>
+   /*@page{ margin:none; size: 8.5in 13in;} /*size:US-Folio;*/
+  .text-blue{ font-family:Arial; color:#0787e4; font-size:12px; }
+	.paddingtd{ padding:3px; font-family:'Trebuchet MS';  font-size:12px; vertical-align: text-top; }
+	.paddingttdm{ padding:5px; font-family:'Trebuchet MS';  font-size:11px; vertical-align: middle; height:23px; }
+	.paddingttdr{ padding:5px; font-family:'Trebuchet MS';  font-size:10px; vertical-align: middle;}
+	.b{ font-weight: bold; }
+	.c{ text-align: center; }
+	.r{ text-align:right; }
+  .l{ text-align:left; }
+	.i{ font-style:italic;}
+	.u{ text-decoration:underline; }
+  .v{ vertical-align:middle; }
+  .vlr{ writing-mode: vertical-rl; transform: rotate(180deg); text-orientation: sideways; text-align:center; text-orientation: sideways; }
+  .pull-left{ float: left !important; }
+  .pull-right { float: right !important; }
+  .class{ float:left; }  
+  @media screen and (min-width: 0px) { .class { float: none; margin: 0 auto; } }
+    
+</style>
+<!---->
+<style>
+    table { font-family:"Trebuchet MS"; }
+    caption{ font-size:25px; font-weight: bold;  }
+    .tdrsv{ font-size:8.5px; padding:1px; border:1px solid #000; }
+    .header{ 
+      background-color:lightgrey; height:23px; 
+      border:2px solid #000; border-bottom:2px solid #000; border-left:2px solid #000; border-right:2px solid #000; 
+    }   
+    .day{ 
+      height:130px; width:150px; vertical-align:top; padding:2px;
+      border:1px solid #000; border:2px solid #000; border-left:2px solid #000; border-right:2px solid #000; 
+    }  
+</style>
+<style>
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+/* Main content */
+.main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+#myBar {
+  width: 10%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center; /* To center it horizontally (if you want) */
+  line-height: 30px; /* To center it vertically */
+  color: white; 
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+</style>   
+<body class="A4" style="font-size:12px;">
+<div id="LoadPrintData" name="LoadPrintData" align="center" style="width:100%;">
+
+
+<section class="sheet padding-10mm" style="padding:25px; border:1px solid #000; border-collapse:collapse; height:14.8in; width:10.4in;">
+    <article style="border:1px solid #780202; border-collapse:collapse; height:14.3in; width:9.9in; padding:0px;">
+<table width="100%" style="border:1px solid #021444; border-collapse:collapse; height:1375px;">
+    <tr>
+        <td style="vertical-align: top;">
+          <table width="100%" style="border-top:1px solid #000; border-left:1px solid #000; border-right:1px solid #000; border-collapse:collapse;">
+                <tr>
+                    <td colspan="3" align="center" style="padding: 2px;">
+                        <img src="{{ logo_data }}" style="height:45px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:22px; ">
+                        APPLICATION FOR DIGITAL CERTIFICATE   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="c" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #FFF; height:22px; ">
+                        <table>
+                            <tr>
+                                <td style="width:350px;">Application ID Number (For Official Use only)</td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                                <td style="border-left:1px solid #000; background-color: #FFF; height:22px; width:3px;"></td>
+                                <td style="border-left:1px solid #000; border-right:1px solid #000; background-color: #FFF; height:22px; width:20px;"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border:1px solid #000; background-color: #fff; height:4.5cm; padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;">
+                        <table width="100%">
+                            <tr>
+                                <td style="padding-left:20px;">
+                                    <table width="100%">
+                                        <tr><td colspan="3" class="b l"  style="padding:5px;">Instructions:</td></tr>
+                                        <tr><td width="20"></td><td width="20">1.</td><td style="padding:2px;">Please fill the form in BLOCK LETTERS ONLY.</td></tr>
+                                        <tr><td width="20"></td><td width="20">2.</td><td style="padding:2px;">Required fields are marked with an asterisk (*).</td></tr>
+                                        <tr><td width="20"></td><td width="20">3.</td><td style="padding:2px;">Present one (1) copy and the original documents to our Registration<br>Authority for verification and attestation.</td></tr>
+                                        <tr><td width="20"></td><td width="20">4.</td><td style="padding:2px;">Any information that is not verified shall not be included in certificates.</td></tr>
+                                        <tr><td width="20"></td><td width="20">5.</td><td style="padding:2px;">Any discrepancy or inconsistency in the form will lead to delay and/or<br>rejection.</td></tr>
+                                    </table>
+
+                                </td>
+                                <td style="border:1px solid #000; width:3.5cm; height:4.5cm; vertical-align: middle;">
+                                    <img src="{{ pass_photo }}" style="width:3.5cm; height:4.5cm; border: solid 2px #FFF;"></img>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+          </table>
+        </td>
+      </tr>
+</table>
+    </article>
+</section>      
+</div>
+  </body>
+</html> 

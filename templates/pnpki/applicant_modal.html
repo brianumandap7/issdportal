@@ -1,0 +1,191 @@
+{% load static %}
+<div class="modal fade show" id="modal-default" style="display: block;" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">View Application</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <small class="darkred">{{ form.instance.ApplicationID }}</small> <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="max-height: 500px; overflow-y: auto; ">
+    <form id="ApplicationForm" name="ApplicationForm" method="post" enctype="multipart/form-data" autocomplete="off" class="panel-body wrapper-lg">
+        {% csrf_token %}
+<div class="row">
+    <div class="col-md-3">
+        <!--div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle" alt="User profile picture" data-cfsrc="{{ form.instance.PassportPhoto.url }}" src="{{ form.instance.PassportPhoto.url }}">
+                </div>
+                <h5 class="profile-username text-center">{{ form.instance.FirstName }} {{ form.instance.LastName }}</h5>
+                <p class="text-muted text-center">Software Engineer</p>
+            </div>
+        </div-->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile" align="center">
+                <div class="profile-wrapper">
+                  <img  class="profile-image profile-user-img img-fluid img-circle" data-cfsrc="{{ form.instance.PassportPhoto.url }}" src="{{ form.instance.PassportPhoto.url }}" alt="Profile">
+                </div>
+                <h5 class="profile-username text-center">{{ form.instance.FirstName }} {{ form.instance.LastName }}</h5>
+                <!--p class="text-muted text-center">Software Engineer</p-->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+            <div class="card card-navy card-outline">
+                <div class="card-header"><h5 class="card-title"><i class="fas fa-user"></i> APPLICANT’S DETAILS</h5></div>
+                    <table class="v-align-table table table-striped table-sm table-container table-hover" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                        <tbody style="vertical-align: middle;">
+                            <tr class="form-group" id="GrpFirstName"><th class="b"  width="140">First Name</th><th width="10">:</th><td><input type="text" id="FirstName" name="FirstName" placeholder="First Name" class="form-control input-sm" value="{{ form.instance.FirstName }}"></td></tr>
+                            <tr class="form-group" id="GrpMiddleName"><th class="b">Middle Name</th><th>:</th><td><input type="text" id="MiddleName" name="MiddleName" placeholder="Middle Name" class="form-control input-sm" value="{{ form.instance.MiddleName }}"></td></tr>
+                            <tr class="form-group" id="GrpLastName"><th class="b">Last Name</th><th>:</th><td><input type="text" id="LastName" name="LastName" placeholder="Last Name" class="form-control input-sm" value="{{ form.instance.LastName }}"></td></tr>
+                            <tr class="form-group" id="GrpExtensionName"><th class="b">Extension Name</th><th>:</th><td><input type="text" id="ExtensionName" name="ExtensionName" placeholder="Extension Name" class="form-control input-sm" value="{{ form.instance.ExtensionName }}"></td></tr>
+                            <tr class="form-group" id="GrpGenderID"><th class="b">Gender</th><th>:</th><td>
+							        <select name="GenderID" id="GenderID" placeholder="Gender" class="form-control input-sm">
+                                        <option value="">--</option>
+                                    {% for gndr in select.GenderName %}
+                                        <option value="{{ gndr.id }}" {% if form.instance.GenderID == gndr.id %}selected{% endif %}>
+                                            {{ gndr.Description|upper }}
+                                        </option>
+                                    {% endfor %}                                        
+                                    </select>                                
+                            </td></tr>
+                            <tr class="form-group" id="GrpNationalityID"><th class="b">Nationality</th><th>:</th><td>
+							        <select name="NationalityID" id="NationalityID" placeholder="Nationality" class="form-control input-sm">
+                                        <option value="">---</option>
+                                    {% for cntry in select.CountryName %}
+                                        <option value="{{ cntry.id }}" {% if form.instance.NationalityID == cntry.id %}selected{% endif %}>
+                                            {{ cntry.CountryName|upper }}
+                                        </option>
+                                    {% endfor %}                                        
+                                    </select>
+
+                            </td></tr>
+                            <tr class="form-group" id="GrpBirthDate"><th class="b">Birth Date</th><th>:</th><td><input type="text" id="BirthDate" name="BirthDate" placeholder="Birth Date" class="form-control input-sm input-date" value="{{ form.instance.BirthDate|date:'Y-m-d' }}"></td></tr>
+                            <tr class="form-group" id="GrpTaxIDNumber"><th class="b">TIN</th><th>:</th><td><input type="text" id="TaxIDNumber" name="TaxIDNumber" placeholder="Tax ID Number" class="form-control input-sm" value="{{ form.instance.TaxIDNumber }}"></td></tr>
+                            <tr class="form-group" id="GrpOrgAgencyCompany"><th class="b">Org/Agency/Company</th><th>:</th><td><input type="text" id="OrgAgencyCompany" name="OrgAgencyCompany" placeholder="Org/Agency/Company" class="form-control input-sm" value="{{ form.instance.OrgAgencyCompany|upper }}"></td></tr>
+                            <tr class="form-group" id="GrpOrgUnitDeptDiv"><th class="b">Org Unit/Dept/Div</th><th>:</th><td><input type="text" id="OrgUnitDeptDiv" name="OrgUnitDeptDiv" placeholder="Org Unit/Dept/Div" class="form-control input-sm" value="{{ form.instance.OrgUnitDeptDiv|upper }}"></td></tr>
+                        </tbody>
+                    </table>
+            </div>
+            
+
+            <div class="card card-lightblue card-outline">
+                <div class="card-header"><h5 class="card-title"><i class="fas fa-map-marker-alt mr-1"></i> CONTACT DETAILS</h5></div>
+                    <table class="v-align-table table table-striped table-sm table-container table-hover" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                        <tbody>
+                            <tr class="form-group" id="GrpHouseUnitNumber"><th width="140" class="b">House/Unit&nbsp;Number</th><td width="10">:</td><td><input type="text" id="HouseUnitNumber" name="HouseUnitNumber" placeholder="House Unit/Number" class="form-control input-sm" value="{{ form.instance.HouseUnitNumber|upper }}"></td></tr>
+                            <tr class="form-group" id="GrpStreet"><th class="b">Street</th><th>:</th><td><input type="text" id="Street" name="Street" placeholder="Street" class="form-control input-sm" value="{{ form.instance.Street|upper }}"></td></tr>
+                                                       
+                            <tr class="form-group" id="GrpProvinceState"><th class="b">Province/State</th><th>:</th><td>
+                                    <select name="ProvinceState" id="ProvinceState" placeholder="Province/State" class="form-control input-sm" required onchange="GetMunCity()">
+                                        <option value="">---</option>
+                                    {% for prov in select.ProvName %}
+                                        <option value="{{ prov.provCode }}" {% if form.instance.ProvinceState == prov.provCode %}selected{% endif %}>
+                                           {{ prov.provDesc }}
+                                        </option>
+                                    {% endfor %}
+                                    </select>                                
+                            </td></tr>
+                            <tr class="form-group" id="GrpMunicipalityCity"><th class="b">Municipality/City</th><th>:</th><td>
+                                    <select id="MunicipalityCity" name="MunicipalityCity" placeholder="Municipality/City/State" class="form-control input-sm" required onchange="GetBarangay()">
+                                         <option value="">---</option>
+                                        {% for mnct in select.CityName %}
+                                            <option value="{{ mnct.citymunCode }}" {% if form.instance.MunicipalityCity == mnct.citymunCode %}selected{% endif %} >
+                                                {{ mnct.citymunDesc }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>                                
+                            </td></tr>
+                            <tr class="form-group" id="GrpBarangay"><th class="b">Barangay</th><th>:</th><td>
+                                    <select id="Barangay" name="Barangay" placeholder="Barangay" class="form-control input-sm" required>
+                                        <option value="">---</option>
+                                        {% for brgy in select.BrgyName %}
+                                            <option  value="{{ brgy.brgyCode }}" {% if form.instance.Barangay == brgy.brgyCode %}selected{% endif %}>
+                                                {{ brgy.brgyDesc|upper }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>                        
+                            </td></tr>
+                            <tr class="form-group" id="GrpZipCode"><th class="b">Zip Code</th><th>:</th><td><input type="text" id="ZipCode" name="ZipCode" placeholder="Zip Code" class="form-control input-sm" value="{{ form.instance.ZipCode|upper }}"></td></tr>
+                            <tr class="form-group" id="GrpMobileNumber"><th class="b">Mobile Number</th><th>:</th><td><input type="text" id="MobileNumber" name="MobileNumber" placeholder="Mobile Number" class="form-control input-sm" value="{{ form.instance.MobileNumber|upper }}"></td></tr>
+                            <tr class="form-group" id="GrpEmailAddress"><th class="b">Email Address</th><th>:</th><td><input type="text" id="EmailAddress" name="EmailAddress" placeholder="Email Address" class="form-control input-sm" value="{{ form.instance.EmailAddress|upper }}"></td></tr>
+                        </tbody>
+                    </table>
+            </div>
+                        
+    </div>
+    <div class="col-md-12">
+            <div class="card card-success card-outline">
+                <div class="card-header"><h5 class="card-title"><i class="fas fa-file"></i> ATTACHMENT</h5></div>
+                    <table class="table table-striped table-sm table-container table-hover" style="font-size:13px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                        <tbody>
+                            <tr>
+                                <td class="c">
+                    {% if attachments %}
+                        {% for attachment in attachments %}
+                            <img src="{{ attachment.AttachedFiles.url }}" style="width:100px;">
+                        {% endfor %}
+                    {% else %}
+                        <p>No attachments found.</p>
+                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+    </div>        
+</div>
+    <input type="hidden" id="id" name="id" class="form-control input-sm" value="{{ form.instance.id }}">
+    <input type="hidden" id="ApplicationID" name="ApplicationID" class="form-control input-sm" value="{{ form.instance.ApplicationID }}">
+    <input type="hidden" id="TermServiceID" name="TermServiceID" class="form-control input-sm" value="{{ form.instance.TermServiceID }}">
+    </form>
+            </div>
+            <div class="modal-footer justify-content-between"><!--justify-content-between-->
+                    <!--div class="input-group">
+                        <select class="form-control input-sm">
+                            <option>--</option>
+                            <option>--</option>
+                        </select>
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-md btn-flat btn-disapprove" id="{{ form.instance.id }}" trans-id="{{ form.instance.ApplicationID }}"><i class="fa fa-paper-plane"></i> Disapprove</button>
+                        <button type="button" class="btn btn-warning btn-md btn-flat btn-approve" id="{{ form.instance.id }}" trans-id="{{ form.instance.ApplicationID }}"><i class="fa fa-check"></i> Approve</button>
+                        <button type="button" class="btn btn-default btn-md btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                      </div>
+                    </div-->
+
+                
+                
+              <button type="button" class="btn btn-info btn-md btn-flat btn-submit pull-left" stye="float: left;"><i class="fa fa-paper-plane"></i> Update</button>
+              <div>
+              <button type="button" class="btn btn-warning btn-md btn-flat btn-approve" id="{{ form.instance.id }}" trans-id="{{ form.instance.ApplicationID }}"><i class="fa fa-check"></i> Approve</button>
+              <button type="button" class="btn btn-default btn-md btn-flat" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>
+<style>
+.parent-container {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center (optional) */
+}
+.profile-wrapper {
+    width: 100px;      /* parent container size (can be % for responsiveness) */
+    max-width: 100%;   /* prevent overflow on small screens */
+    aspect-ratio: 1/1; /* keeps it always square */
+    overflow: hidden;  /* hide extra parts of the image */
+    border-radius: 50%; /* circle */
+}
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* keeps aspect ratio while filling circle */
+    /*object-fit: cover; /* keeps aspect ratio while filling circle */
+}
+</style>

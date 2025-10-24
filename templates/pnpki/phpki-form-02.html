@@ -1,0 +1,216 @@
+    {% load static %}
+<section class="sheet padding-10mm" style="padding:25px;">
+    <article style="border:1px solid #FFF; border-collapse:collapse; height:262mm; padding:0px;">
+<table width="100%" style="border:1px solid #fff; border-collapse:collapse;" id="myTable">
+    <tr>
+        <td style="vertical-align: top;">
+            <table width="100%" style="border:1px solid #000; border-collapse:collapse;">
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:22px; ">
+                        6. DECLARATION
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:0px solid #000; background-color: #fff; height:22px; padding:5px; padding-left:50px; padding-right:50px;">
+                        I hereby agree that I have read and understood the provisions of the Subscriber ’s Agreement; that all information provided and documents
+submitted in relation to this application is true and correct to the best of my knowledge; that I am duly authorized to make this application;<br>
+that I consent to the subscriber agreement and will abide by the same; that I accept the publication of my certificate information.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:0px solid #000; background-color: #fff; height:22px; padding:5px; padding-left:50px; padding-right:50px;">
+                    I authorize and expressly give consent to the National PKI through its authorized representative(s) to verify my personal information from
+whatever source it deems appropriate.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:0px solid #000; background-color: #fff; height:22px; padding:4px;">
+                        <table align="center">
+                            <tr>
+                                <td style="width:600px; padding:20px;">
+                                    <div style="position: relative;">
+                                        <table width="100%" style="position: relative; z-index:2;">
+                                            <tr style="height:22px;">
+                                                <td style="width:40px; vertical-align: bottom;">Date:</td>
+                                                <td style="border-bottom:1px solid #000; width:100px; vertical-align: bottom;" class="b c"> {{ form.instance.TransDate|date:'Y-m-d'}} </td>
+                                                <td style="width:40px; vertical-align: bottom; padding-left:10px">Place:</td>
+                                                <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                                <td style="width:100px; vertical-align: bottom; padding-left:10px">Name of Applicant:</td>
+                                                <td style="border-bottom:1px solid #000; width:150px; vertical-align: bottom;" class="b c">
+                                                    {{ form.instance.FirstName|upper }} {{ form.instance.MiddleName|upper }} {{ form.instance.LastName|upper }} {{ form.instance.ExtensionName|upper }}
+                                                </td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td style=" vertical-align: bottom;"></td>
+                                                <td style="border-bottom:1px solid #fff; width:100px;"></td>
+                                                <td style="vertical-align: bottom;"></td>
+                                                <td style="border-bottom:0px solid #fff; width:100px;"></td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td style="vertical-align: bottom;"></td>
+                                                <td style="border-bottom:1px solid #fff; width:100px;"></td>
+                                                <td style="vertical-align: bottom;"></td>
+                                                <td style="border-bottom:1px solid #fff; width:100px;"></td>
+                                                <td style="vertical-align: bottom; padding-left:10px">Signature:</td>
+                                                <td style="border-bottom: 1px solid #000; width: 200px; vertical-align: top;"></td>
+                                            </tr>
+                                        </table>
+                                        <div style="position: absolute; bottom: -23px; right: 40px;">
+                                            <img src="{{ form.instance.SignatureImage.url }}" style="width: 150px; max-height: 100px;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>        
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:22px; ">
+                        7. CHECKLIST OF DOCUMENTS TO BE SUBMITTED ALONG WITH THE APPLICATION
+                    </td>
+                </tr>
+                <tr>
+                    <td class="c" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; ">
+                        Present the ff. original documents with photocopy to our Registration Authority for verification and attestation
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b l" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; padding-left:15px;">
+                        Required Documents:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; padding:3px; padding-left:15px;">
+                        <table>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Birth certificate issued by PSA OR valid Passport</tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Alien Certificate of Registration (ACR) card for foreigners</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Unified Multi-purpose Identification Card (UMID) Compliant Card</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b l" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; padding-left:15px;">
+                        In the absence of UMID-compliant card, any two (2) of the following cards are allowed as valid ID’s
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; padding:3px; padding-left:15px;">
+                        <table>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Driver’s License</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Professional Regulation Commission (PRC) ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> National Bureau of Investigation (NBI) Clearance</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Postal ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Voter’s ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Government Service Insurance System (GSIS) e-Card</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Government Office and GOCC ID, e.g. Armed Forces of the Philippines (AFP ID), Home Development Mutual Fund (HDMF)</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Social Security System (SSS) Card</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Senior Citizen Card</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Overseas Workers Welfare Administration (OWWA) ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> OFW ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Integrated Bar Of The Philippines ID</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Department of Social Welfare and Development (DSWD) Certification</td></tr>
+                            <tr><td><b style="font-size:14px;">&#x2610;</b> Company IDs Issued by Private Entities or Institutions Registered with or Supervised or Regulated either by the BSP, SEC, or IC</td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:22px; ">
+                        8. DISCLAIMER
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:1px solid #000; background-color: #fff; height:22px; padding:5px; padding-left:60px; padding-right:60px;">
+                        The collected personal information is utilized solely for documentation and processing purposes within the DICT and is not shared with
+any outside parties, in accordance with the Data Privacy Act of 2012.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:22px; ">
+                        TO BE FILLED BY RA OFFICE ONLY
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:0px solid #000; background-color: #fff; height:22px; padding:5px; padding-left:50px; padding-right:50px;">
+                        I declare that the applicant has provided correct information in this application form. I have checked and verified the application form and
+supporting documents.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l" colspan="3" style="font-size:10px; border:0px solid #000; background-color: #fff; height:22px; padding:4px;">
+                        <table align="center">
+                            <tr>
+                                <td style="width:400px; padding:20px;">
+                                    <table width="100%">
+                                        <tr style="height:22px;">
+                                            <td style="width:40px; vertical-align: bottom;">RA Code:</td>
+                                            <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                            <td style="width:40px; vertical-align: bottom; padding-left:10px">Name:</td>
+                                            <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                        </tr>
+                                        <tr style="height:22px;">
+                                            <td style=" vertical-align: bottom;">Signature:</td>
+                                            <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                            <td style="vertical-align: bottom;"></td>
+                                            <td style="border-bottom:0px solid #000; width:100px;"></td>
+                                        </tr>
+                                        <tr style="height:22px;">
+                                            <td style="vertical-align: bottom;">Date:</td>
+                                            <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                            <td style="vertical-align: bottom; padding-left:10px">Place:</td>
+                                            <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table width="100%">
+                                        <tr>
+                                            <td class="c" style="font-size:10px; border:1px solid #000; height:90px; width:90px;">RA Seal and Stamp</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>        
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="height:165px;">
+                        <img src="{% static '/img/dict-logo-hr.png' %}" style="height:90px;"></img>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="c" colspan="3" style="border-top:1px solid #000; border-bottom:1px solid #000; background-color: #fff; height:22px; ">
+                        THIS FORM IS NOT FOR SALE
+                    </td>
+                </tr>
+            </table>        
+        </td>
+    </tr>
+</table>
+    </article>
+    <table style="width:100%;">
+        <tr style="height:75.591px;">
+            <td style="width:100px;" align="left">
+                <!--img src="" style="width:180px; padding-right:10px; padding-bottom:5px;"></img-->
+            </td>
+            <td align="center" style="vertical-align: bottom; padding: 3px; color: #03426f;">
+                <table style="width:100%; font-size: 11px;"> 
+                    <tr><td class="c">DICT Building, C.P. Garcia Avenue, Diliman, Quezon City, 1101, Philippines</td></tr>
+                    <tr><td class="c">Tel: +63 (02) 920-0101   |   <a href="http://www.dict.gov.ph">www.dict.gov.ph</a></td></tr>
+                </table>
+            </td>
+            <td style="width:100px;" align="right">
+                <img src="{% static '/img/dict-pnpki-qr.png' %}" style="width:75.591px;"></img>
+            </td>
+        </tr>
+	</table>
+	<table style="width:100%;">
+	    <!--tr class="paddingttdr" style="height:22px; font-family:Trebuchet MS;">
+		        <td style="padding:2px;" class="i r" colspan="3">Page 04 of 04<span class="TotalPage"></span>&nbsp;&nbsp;</td>
+		</tr-->
+	    <tr>
+	        <td style="font-size:5px; font-family:Verdana; height:2px; text-align:left; width:30%;">&nbsp;&nbsp;jasbarranda</td>
+            <td style="font-size:5px; font-family:Verdana; height:2px; text-align:center; width:40%;">system generated report from mis.dotr.gov.ph</td>
+	        <td style="font-size:5px; font-family:Verdana; height:2px; text-align:right; width:30%;">Copyright &copy; JASB&nbsp;&nbsp;</td>
+        </tr>
+    </table>
+</section>

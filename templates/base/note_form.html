@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class=" js no-touch no-android chrome no-firefox no-iemobile no-ie no-ie10 no-ie11 no-ios no-ios7 ipad"><!--bg-dark-->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+		<meta charset="utf-8">
+		<link rel="SHORTCUT ICON" href="{% static '/img/dotr-logo.png' %}"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>{{ ProjectName }} : {% block title %}My Site{% endblock %}</title>
+		<meta name="description" content="jasbarranda, app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+		
+		<link href="{% static 'jasb/flatfull/jasb-47a282dfe68a42d302e22c4920ed9b5e.css' %}" type="text/css" rel="stylesheet"> 
+		<link href="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.css' %}" type="text/css" rel="stylesheet">
+		<link href="{% static 'jasb/flatfull/jasb-588cb345a2594d978deadf3be9af9fa4.css' %}" type="text/css" rel="stylesheet">
+		<!--[if lt IE 9]> 
+		<script src="js/ie/html5shiv.js"></script> 
+		<script src="js/ie/respond.min.js"></script> 
+		<script src="js/ie/excanvas.js"></script> 
+		<![endif]-->
+
+                <!-- Font Awesome Icons -->
+                <link href="{% static 'jasb/lte/css/jasb-fcad2de79d7c7cba899c914ad1fa2906.css' %}" rel="stylesheet" type="text/css"/>
+                <!-- Ionicons -->
+                <link href="{% static 'jasb/lte/css/jasb-7b59c600dec94c7764f9088be40d321b.css' %}" rel="stylesheet" type="text/css"/>
+
+
+                <!-- DatePicker -->	
+                <link href="{% static 'jasb/daterangepicker/jasb-4a39b32fa402c60c1db2b85278aa6df5.css' %}" rel="stylesheet" >
+
+                <!-- Autocomplete -->
+                <!--link rel="stylesheet" href="/autocomplete/jquery-ui.css" type="text/css" media="all" /-->
+
+                <!-- Notiflix -->	
+                <link href="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.css' %}" rel="stylesheet" >
+                <script src="{% static 'jasb/notiflix/jasb-7fb0c37143e206a9fce599cccae8f1fa.js' %}" type="text/javascript"></script> 
+                                
+                <!--JasbJS-->
+                <script src="{% static 'jasb/common/jasb-90ccf32eaae9ae5a6f5bccd98b1145ef.js' %}" type="text/javascript"></script> 
+                <script src="{% static 'jasb/common/jasb-b59714ab5055a284016d822ee97be029.js' %}" type="text/javascript"></script>
+                <script src="{% static 'jasb/common/jasb-58823a72f02f2baf89eee052972e0ea4.js' %}" type="text/javascript"></script>
+
+		
+	<style>
+		img {  height: auto; }
+	</style>
+        <script language="JavaScript">  
+                <!-- Disable  
+                function disableselect(e){ return false; }  
+
+                function reEnable(){ return true; }  
+
+                //if IE4+  
+                document.onselectstart=new Function ("return false")  
+                document.oncontextmenu=new Function ("return false")  
+                //if NS6  
+                if (window.sidebar){  
+                document.onmousedown=disableselect  
+                document.onclick=reEnable  
+                }  
+        //-->  
+        </script>		
+	</head>
+	<body class=""> 
+		{% block content %}{% endblock %}
+
+	<script src="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.js' %}"></script> 
+	<script src="{% static 'jasb/flatfull/jasb-96d4465ee762461790c415fe5e29a4a6.js' %}"></script>
+	<script src="{% static 'jasb/flatfull/jasb-588cb345a2594d978deadf3be9af9fa4.js' %}"></script>
+    
+        <!-- DatePicker -->
+        <script src="{% static 'jasb/daterangepicker/jasb-a41a76dd1bee993ae432d7682d893051.js' %}"></script>
+        <script src="{% static 'jasb/daterangepicker/jasb-b50b2c0167f807749c1431cbf6bd6a0a.js' %}"></script>
+
+	</body>
+<style>
+.not-active{ pointer-events: none; cursor: default; }
+.darkred{ color:darkred; }
+</style>
+</html>
+<script type="text/javascript" charset="utf-8">
+        //$(function(){ Notiflix.Loading.Standard();  $("#NotiflixLoadingWrap").fadeOut('slow'); });
+        $(function(){ Notiflix.Notify.Init({useIcon:false,borderRadius:"0px"}); Notiflix.Confirm.Init({ borderRadius:"0px"}); Notiflix.Report.Init({ borderRadius:"0px"}); });
+//===========================================================================================================================================================================
+</script>

@@ -1,0 +1,190 @@
+{% load static %}
+<section class="sheet" style="border:0px solid #000;">
+<div style="padding-left:35px; background-color: #17458a; border-collapse:collapse; height:30px; width:790px; color: #FFF; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="l">
+  DICT-PNPKI-FO-001 Revised 2025  
+</div>  
+    <article style="border:1px solid #FFF; border-collapse:collapse; height:271mm; padding:0px;">
+<table width="100%" style="border:0px solid #000; border-collapse:collapse; width:720px; height:1025px;" align="center">
+    <tr>   
+        <td style="vertical-align: top;">
+          <table style="width:100%;">
+            <tr>
+              <td class="c" colspan="2">&nbsp;</td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c">C H E C K L I S T&nbsp;&nbsp;&nbsp;O F&nbsp;&nbsp;&nbsp;D O C U M E N T S&nbsp;&nbsp;&nbsp;T O&nbsp;&nbsp;&nbsp;B E S U B M I T T E D&nbsp;&nbsp;&nbsp;A L O N G&nbsp;&nbsp;&nbsp;W I T H&nbsp;&nbsp;&nbsp;T H E&nbsp;&nbsp;&nbsp;A P P L I C A T I O N</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding-left:10px; padding-right:10px;" class="c">
+                <p>Present the following original documents to our Registration Authority for verification and attestation</p>
+              </td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="l"> R E Q U I R E D&nbsp;&nbsp;&nbsp;D O C U M E N T S</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding-left:10px; padding-right:10px;">
+                <p>One (1) Primary OR two (2) Secondary government-issued IDs</p>
+                
+                        <table style="margin-bottom:10px; font-size:13px;">
+                            <tr><td class="b">P R I M A R Y&nbsp;&nbsp;&nbsp;I D S :</td></tr>
+                            <tr>
+                                <td style="padding:3px; padding-left:30px;">
+                                    <table style="margin-bottom: 10px;">
+                                      <tr>
+                                      {% for attdoc in reqiddoc.req_docs %}
+                                          {% if attdoc.ClassID in reqiddoc.cl_one %}
+                                              <td style="padding:1px; width:300px;">
+                                                  <b style="background-color: #d6e8f7; font-size:16px;">{% if attdoc.id in reqiddoc.all_reqids %}&#x2611;{% else %}&#x2610;{% endif %}</b>
+                                                  {{ attdoc.Description }}
+                                              </td>
+                                              {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                                                  </tr><tr>
+                                              {% endif %}
+                                          {% endif %}
+                                      {% endfor %}
+                                      </tr> 
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td class="b">S E C O N D A R Y&nbsp;&nbsp;&nbsp;I D S :</td></tr>
+                            <tr>
+                                <td style="padding:3px; padding-left:30px;">
+                                    <table style="margin-bottom: 10px;">
+                                        {% for attdoc in reqiddoc.req_docs %}
+                                          {% if attdoc.ClassID in reqiddoc.cl_two %}
+                                          <tr>
+                                            <td style="padding:1px;"> 
+                                            <b style="background-color: #d6e8f7; font-size:16px;">{% if attdoc.id in reqiddoc.all_reqids %}&#x2611;{% else %}&#x2610;{% endif %}</b>
+                                            {{ attdoc.Description }}
+                                            </td>
+                                          </tr>
+                                          {% endif %}
+                                        {% endfor %}                                      
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr><td class="b">A L I E N&nbsp;&nbsp;&nbsp;A P P L I C A N T S&nbsp;&nbsp;&nbsp;O N L Y :</td></tr>
+                            <tr>
+                                <td style="padding:3px; padding-left:30px;">
+                                    <table>
+                                        {% for attdoc in reqiddoc.req_docs %}
+                                          {% if attdoc.ClassID in reqiddoc.cl_tre %}
+                                          <tr>
+                                            <td style="padding:1px;"> 
+                                            <b style="background-color: #d6e8f7; font-size:16px;">{% if attdoc.id in reqiddoc.all_reqids %}&#x2611;{% else %}&#x2610;{% endif %}</b>
+                                            {{ attdoc.Description }}
+                                            </td>
+                                          </tr>
+                                          {% endif %}
+                                        {% endfor %}                                        
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+              </td>
+            </tr>
+
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c"> D I S C L A I M E R </td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding-left:10px; padding-right:10px;">
+                        <table width="100%">
+                            <tr>
+                                <td style="vertical-align: top; text-align: justify; font-size:11px;">
+                                <p>The collected personal information is utilized solely for documentation and processing purposes within the DICT and is not
+                                shared with any outside parties, in accordance with the Data Privacy Act of 2012.</p>
+                            </tr>
+                          </table>
+              </td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c">S U B S C R I B E R&nbsp;&nbsp;&nbsp;A G R E E M E N T</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding-left:10px; padding-right:10px;">
+                        <table width="100%" style="font-size:11px;">
+                            <tr>
+                                <td style="vertical-align: top; text-align: justify;">
+                                <p>Please read the Subscriber Agreement carefully before using the digital certificate issued by the Philippine National PKI. The
+                                agreement is available at this link: <a href="https://cms-cdn.e.gov.ph/DICT/pdf/Digital-Certificate-Subscriber-Agreement-v2.0.pdf">Digital Certificate Subscriber Agreement</a></p>
+
+                                <p>This document outlines the terms and conditions for obtaining and using Digital Certificates issued by the PNPKI, detailing
+                                acceptable uses, conditions for acceptance and revocation, and the comprehensive obligations of the Subscriber. These
+                                obligations include ensuring information accuracy, maintaining private key confidentiality, and promptly requesting revocation
+                                if compromised. The agreement also grants PNPKI permission to publish the certificate’s serial number for CRL and OCSP
+                                dissemination, disclaims liability for prohibited use or subscriber negligence, and specifies termination terms and effects, with
+                                the full CP and CPS available for reference.</p>
+
+                                <p>By applying for a digital certificate, you agree to be bound by the terms of this agreement. If you have any concerns, please
+                                email us at: <a>info.pnpki@dict.gov.ph</a></p>
+                                </td>
+                            </tr>
+                          </table>
+                        <table align="center">
+                            <tr>
+                                <td style="width:700px; padding-left:20px; padding-right:20px;">
+                                    <div style="position: relative; background-color: transparent;">
+                                        <table width="100%" style="position: relative; z-index:2;">
+                                            <tr style="height:22px;">
+                                                <td style="width:40px; vertical-align: bottom;">Date:</td>
+                                                <td style="border-bottom:1px solid #000; width:80px; vertical-align: bottom;" class="b c"> {{ form.instance.TransDate|date:'Y-m-d'}} </td>
+                                                <td style="width:40px; vertical-align: bottom; padding-left:10px">Place:</td>
+                                                <td style="border-bottom:1px solid #000; width:100px;"></td>
+                                                <td style="width:100px; vertical-align: bottom; padding-left:10px">Name of Applicant:</td>
+                                                <td style="border-bottom:1px solid #000; width:250px; vertical-align: bottom;" class="b c">
+                                                    {{ form.instance.FirstName|upper }} {{ form.instance.MiddleName|upper }} {{ form.instance.LastName|upper }} {{ form.instance.ExtensionName|upper }}
+                                                </td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr style="height:22px;">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="vertical-align: bottom; padding-left:10px">Signature:</td>
+                                                <td style="border-bottom: 1px solid #000; vertical-align: top;"></td>
+                                            </tr>
+                                        </table>
+                                        <div style="position: absolute; bottom: -23px; right: 40px; background-color: transparent;">
+                                            <img src="{{ form.instance.SignatureImage.url }}" style="width: 150px; max-height: 100px; background-color: transparent;">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>        
+                        </table>                          
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+</table>
+    </article>
+<div style="position:absolute; bottom: 18mm; left: 10mm;" >
+  <img src="{% static '/img/dict-pnpki-qrcode.jpg' %}" style="width:75.591px;"></img>
+</div>    
+<div style="background-color: #17458a; height: 40px; width: 790px; color: #FFF; display: flex; align-items: center; justify-content: space-between;">
+  <div style="width: 60px;"></div>
+  <div style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    DICT-PNPKI-FO-001<br>
+    Version 5. Revised May 2025
+  </div>
+  <span style="background-color: #fdc823; display: flex; height: 40px; width: 60px;"></span>
+</div>
+<div style="background-color: #d6e8f7; border-collapse:collapse; height:20px; width: 790px; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; justify-content: center;">
+</div>
+</section>

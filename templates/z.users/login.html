@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOTR-MISS Login</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'jasb/rwb/css/jasb-ec5de53d2f84df206da628799a5ba840.css' %}" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="{% static 'jasb/rwb/css/jasb-7f7fa0d8e2403f98a33e56961830303a.css' %}" rel="stylesheet">
+
+  <link href="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.css' %}" rel="stylesheet">
+  
+
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      /*align-items: center;*/
+      justify-content: center;
+      font-family: "Trebuchet MS"; /*, sans-serif*/
+      transition: 0.4s;
+    }
+    body.light { background: linear-gradient(135deg, #1976d2, #42a5f5); color: #222; }
+    body.dark { background: linear-gradient(135deg, #0a192f, #1e293b); color: #eee; }
+
+    .login-card {
+      width: 100%;
+      /*max-width: 380px;*/
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: 0.4s;
+    }
+    .login-card.light { background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .login-card.dark { background: #1e293b; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+
+    .login-card img { width: 100px; margin-bottom: 15px; }
+    .login-card h4 { margin-bottom: 25px; font-weight: bold; }
+
+    .form-control {
+      border: none;
+      border-bottom: 2px solid #ccc;
+      border-radius: 0;
+      background: transparent;
+      color: inherit;
+      padding-left: 35px;
+    }
+    .form-control:focus { border-color: #d32f2f; box-shadow: none; }
+    .input-group-text {
+      background: transparent;
+      border: none;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      color: #999;
+      font-size:15px;
+    }
+
+    .btn-login {
+      background: #d32f2f;
+      color: #fff;
+      border-radius: 30px;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      transition: 0.3s;
+    }
+    .btn-login:hover { background: #b71c1c; }
+
+    .footer-text { margin-top: 15px; font-size: 13px; opacity: 0.7; }
+
+    .theme-toggle {
+      /*position: absolute;
+      top: 15px;
+      right: 20px;
+      */
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .theme-toggle i { color: #fff; }
+
+    /* Message Box */
+    #message {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body class="dark">  
+<section id="content" class="animated fadeInUp"> <!--m-t-lg wrapper-md -->
+  <div class="container aside-xxl m-t-lg">
+  <!-- Theme Toggle -->
+  <div class="theme-toggle pull-right">
+    <i id="toggleIcon" class="fa fa-sun"></i>  
+  </div>
+    <!---->
+  <!-- Login Card -->
+  <div id="loginCard" class="login-card m-t-lg panel dark">
+   
+  <div class="col-xs-12">
+    <img src="{% static '/img/dotr-logo.png' %}" alt="Logo">
+  </div>
+    <h4>MISS Login</h4>
+    <form method="post" autocomplete="off">
+        {% csrf_token %}
+      <div class="mb-3 col-xs-12 position-relative">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" name="username" id="id_username" class="form-control rounded" placeholder="Username" autofocus required>
+      </div>
+      <div class="mb-3 col-xs-12 position-relative">
+        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+        <input type="password" name="password" id="id_password" class="form-control rounded" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-login"><i class="fa fa-sign-in"></i> Login</button>
+    </form>
+    <br>
+    <a  href="{% url 'register' %}" class="btn btn-s-md btn-info btn-rounded btn-block"><i class="fa fa-pen"></i> Register</a>
+
+    <!--form id="loginForm">
+      <div class="mb-3 position-relative">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="mb-3 position-relative">
+        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
+      </div>
+      <button type="submit" class="btn btn-login"><i class="fa fa-sign-in"></i> Login</button>
+    </form-->
+    
+    <div id="message"></div>
+    <div class="footer-text">© 2025 JASB | All Rights Reserved</div>
+  </div>      
+
+      <!---->  
+  </div>  
+</section>
+  <!-- Bootstrap JS -->
+  <script src="{% static 'jasb/rwb/js/jasb-af332f59e1f6c4e26b4e8a0fc5091cc3.js' %}"></script>
+  
+  <script src="{% static 'jasb/flatfull/jasb-29f0d35d471a1bfd6ebe371af41dc347.js' %}"></script> 
+  <script src="{% static 'jasb/flatfull/jasb-96d4465ee762461790c415fe5e29a4a6.js' %}"></script>
+  
+  <script>
+    const body = document.body;
+    const loginCard = document.getElementById("loginCard");
+    const toggleIcon = document.getElementById("toggleIcon");
+
+    // Theme toggle
+    document.querySelector(".theme-toggle").addEventListener("click", () => {
+      if (body.classList.contains("light")) {
+        body.classList.replace("light", "dark");
+        loginCard.classList.replace("light", "dark");
+        toggleIcon.classList.replace("fa-moon", "fa-sun");
+      } else {
+        body.classList.replace("dark", "light");
+        loginCard.classList.replace("dark", "light");
+        toggleIcon.classList.replace("fa-sun", "fa-moon");
+      }
+    });
+
+/*
+    // Login via API
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const messageBox = document.getElementById("message");
+
+      messageBox.innerHTML = "🔄 Validating...";
+      messageBox.style.color = "orange";
+
+      try {
+        const response = await fetch("/api/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          messageBox.innerHTML = "✅ Login successful! Redirecting...";
+          messageBox.style.color = "green";
+          setTimeout(() => {
+            //window.location.href = "dashboard.html"; // change to your dashboard route
+          }, 1500);
+        } else {
+          messageBox.innerHTML = "❌ " + (data.message || "Invalid username or password.");
+          messageBox.style.color = "red";
+        }
+      } catch (err) {
+        messageBox.innerHTML = "⚠️ Server error. Please try again later.";
+        messageBox.style.color = "red";
+      }
+    });
+*/    
+  </script>
+</body>
+</html>
+
+<!--h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<a href="{% url 'register' %}">Register</a-->

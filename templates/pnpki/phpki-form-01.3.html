@@ -1,0 +1,48 @@
+{% load static %}
+<section class="sheet" style="border:0px solid #000;">
+<div style="padding-left:35px; background-color: #17458a; border-collapse:collapse; height:30px; width:790px; color: #FFF; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="l">
+  DICT-PNPKI-FO-001 Revised 2025  
+</div>  
+    <article style="border:1px solid #FFF; border-collapse:collapse; height:271mm; padding:0px;">
+<table width="100%" style="border:0px solid #000; border-collapse:collapse; width:720px; height:1025px;" align="center">
+    <tr>   
+        <td style="vertical-align: top;">
+          <table style="width:100%;">
+            <tr>
+              <td class="c" colspan="2">&nbsp;</td>
+            </tr>
+            <tr style="height:30px;">
+              <td style="width:10px; background-color:#fdc823;"></td>
+              <td style="background-color:#17458a; color: #FFF; padding-left:10px;" class="c">A T T A C H M E N T S</td>
+            </tr>
+            <tr>
+              <td style="width:10px;"></td>
+              <td style="padding:10px;" class="c">
+                    {% if attachments %}
+                        {% for attachment in attachments %}
+                            <img src="{{ attachment.AttachedFiles.url }}" style="width:300px;">
+                        {% endfor %}
+                    {% else %}
+                        <p>No attachments found.</p>
+                    {% endif %}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </article>
+<div style="position:absolute; bottom: 18mm; left: 10mm;" >
+  <img src="{% static '/img/dict-pnpki-qrcode.jpg' %}" style="width:75.591px;"></img>
+</div>    
+<div style="background-color: #17458a; height: 40px; width: 790px; color: #FFF; display: flex; align-items: center; justify-content: space-between;">
+  <div style="width: 60px;"></div>
+  <div style="text-align: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+    DICT-PNPKI-FO-001<br>
+    Version 5. Revised May 2025
+  </div>
+  <span style="background-color: #fdc823; display: flex; height: 40px; width: 60px;"></span>
+</div>
+<div style="background-color: #d6e8f7; border-collapse:collapse; height:20px; width: 790px; display: flex; align-items: center; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; justify-content: center;">
+</div>
+</section>

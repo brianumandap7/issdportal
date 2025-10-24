@@ -1,0 +1,56 @@
+    {% load static %}
+<section class="sheet padding-10mm" style="padding:25px;">
+    <article style="border:1px solid #FFF; border-collapse:collapse; height:262mm; padding:0px;">
+<table width="100%" style="border:1px solid #fff; border-collapse:collapse;">
+    <tr>
+        <td style="vertical-align: top;">
+            <table width="100%" style="border:1px solid #000; border-collapse:collapse;">
+                <tr>
+                    <td class="b c" colspan="3" style="border:1px solid #000; background-color: #8d8c8c; height:23px; ">
+                        ATTACHMENTS
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="c" colspan="3" style="font-size:10px; border-bottom:1px solid #000; height:960px; padding:15px; vertical-align: top;">
+                    {% if attachments %}
+                        {% for attachment in attachments %}
+                            <img src="{{ attachment.AttachedFiles.url }}" style="width:300px;">
+                        {% endfor %}
+                    {% else %}
+                        <p>No attachments found.</p>
+                    {% endif %}                        
+                    </td>
+                </tr>                
+            </table>        
+        </td>
+    </tr>
+</table>
+    </article>
+    <table style="width:100%;">
+        <tr style="height:75.591px;">
+            <td style="width:100px;" align="left">
+                <!--img src="" style="width:180px; padding-right:10px; padding-bottom:5px;"></img-->
+            </td>
+            <td align="center" style="vertical-align: bottom; padding: 3px; color: #03426f;">
+                <table style="width:100%; font-size: 11px;"> 
+                    <tr><td class="c">DICT Building, C.P. Garcia Avenue, Diliman, Quezon City, 1101, Philippines</td></tr>
+                    <tr><td class="c">Tel: +63 (02) 920-0101   |   <a href="http://www.dict.gov.ph">www.dict.gov.ph</a></td></tr>
+                </table>
+            </td>
+            <td style="width:100px;" align="right">
+                <img src="{% static '/img/dict-pnpki-qr.png' %}" style="width:75.591px;"></img>
+            </td>
+        </tr>
+	</table>
+	<table style="width:100%;">
+	    <!--tr class="paddingttdr" style="height:23px; font-family:Trebuchet MS;">
+		        <td style="padding:2px;" class="i r" colspan="3">Page 04 of 04<span class="TotalPage"></span>&nbsp;&nbsp;</td>
+		</tr-->
+	    <tr>
+	        <td style="font-size:5px; font-family:Verdana; height:2px; text-align:left; width:30%;">&nbsp;&nbsp;jasbarranda</td>
+            <td style="font-size:5px; font-family:Verdana; height:2px; text-align:center; width:40%;">system generated report from mis.dotr.gov.ph</td>
+	        <td style="font-size:5px; font-family:Verdana; height:2px; text-align:right; width:30%;">Copyright &copy; JASB&nbsp;&nbsp;</td>
+        </tr>
+    </table>
+</section>
