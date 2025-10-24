@@ -12,6 +12,32 @@
 </head>
 
 <style>
+  /* Loader styles */
+  #loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #CE1126;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 /* Reset */
 * {
   margin: 0;
@@ -140,7 +166,7 @@ body {
 /* Logout Button */
 .logout-btn {
   display: inline-block;
-  padding: 3px 13px;
+  padding: 9px 13px;
   background: #ffffff;
   border: 2px solid #CE1126;
   color: #CE1126;
@@ -177,14 +203,45 @@ body {
   text-decoration: underline;
 }
 
-</style>
+.brand-link {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease;
+  color: #060606;
+  text-decoration: none;
+}
 
+.brand-link:hover {
+  color: #060606;
+  text-decoration: none;
+}
+
+.brand-image {
+  height: 80px;
+  width: 80px;
+}
+</style>
 <body>
   <div id="main-container">
-
+      <!-- Preloader -->
+      <div id="loader">
+        <div class="spinner"></div>
+      </div>
     <!-- Navbar -->
     <div id="nav">
-      <h1>ISSD Portal</h1>
+      <a href="/dashboard" class="brand-link">
+        <img src="{% static 'basetemp/dotricon.png' %}" 
+            alt="AdminLTE Logo" 
+            class="brand-image img-circle elevation-3" 
+            style="opacity: .8">
+        <span class="brand-text font-weight-bold"><strong>ISSD Portal</strong></span>
+      </a>
+
+
       <button type="button" class="logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
         Logout
       </button>

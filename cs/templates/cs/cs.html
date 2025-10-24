@@ -148,33 +148,33 @@
                   <thead>
                     <tr>
                       <th>Ticket Ref #</th>
-                      <th class="d-none d-sm-table-cell" style="width: 10%">Type</th>
-                      <th class="d-none d-sm-table-cell">TLP</th>
+                      <th class="d-none d-lg-table-cell" style="width: 10%">Type</th>
+                      <th class="d-none d-lg-table-cell">TLP</th>
                       <th style="width: 20%">Vulnerability</th>
-                      <th class="d-none d-sm-table-cell" style="width: 20%">Description</th>
-                      <th class="d-none d-sm-table-cell">Severity</th>
+                      <th class="d-none d-lg-table-cell" style="width: 20%">Description</th>
+                      <th class="d-none d-lg-table-cell">Severity</th>
                       <th>Assigned Responder</th>
-                      <th>Actions</th>
+                      <th class="d-none d-lg-table-cell">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for items in tdata %}
                     <tr>
                       <td>{{items.Ticket_number}}</td>
-                      <td class="d-none d-sm-table-cell">{{items.Classification}}</td>
-                      <td class="d-none d-sm-table-cell">{{items.TLP}}</td>
+                      <td class="d-none d-lg-table-cell">{{items.Classification}}</td>
+                      <td class="d-none d-lg-table-cell">{{items.TLP}}</td>
                       <td>{{items.Vulnerability}}</td>
-                      <td class="d-none d-sm-table-cell text-justify">{{items.Description}}</td>
-                      <td class="d-none d-sm-table-cell">{{items.Severity}}</td>
+                      <td class="d-none d-lg-table-cell text-justify">{{items.Description}}</td>
+                      <td class="d-none d-lg-table-cell">{{items.Severity}}</td>
                       <td>{{items.Responder}}</td>
                       {% if user.is_superuser %}
-                        <td>
+                        <td class="d-none d-lg-table-cell">
                           <a href="#" class="btn btn-success" data-toggle="modal" data-target="#assignModal">
                             Assign
                           </a>
                         </td>
                       {% else %}
-                        <td><button class="btn btn-success" disabled>Assign</button></td>
+                        <td class="d-none d-sm-table-cell"><button class="btn btn-success" disabled>Assign</button></td>
                       {% endif %}
                     </tr>
                     {% endfor %}
@@ -188,14 +188,14 @@
                   <a href="#" class="btn btn-info float-right btn-custom1" data-toggle="modal" data-target="#addAdvModal">
                       Add Advisory
                   </a>
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-striped">
                     <thead>
                       <tr>
                         <th>Ref #</th>
                         <th>Vulnerability</th>
-                        <th class="d-none d-sm-table-cell">Description</th>
-                        <th class="d-none d-sm-table-cell">Recommendations</th>
-                        <th>Actions</th>
+                        <th class="d-none d-lg-table-cell">Description</th>
+                        <th class="d-none d-lg-table-cell">Recommendations</th>
+                        <th class="d-none d-lg-table-cell">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -203,9 +203,9 @@
                       <tr>
                         <td>{{adv.Ticket_number}}</td>
                         <td>{{adv.Vulnerability}}</td>
-                        <td class="d-none d-sm-table-cell text-justify">{{adv.Description}}</td>
-                        <td class="d-none d-sm-table-cell text-justify"><pre>{{adv.Recommendations}}</pre></td>
-                        <td>
+                        <td class="d-none d-lg-table-cell text-justify">{{adv.Description}}</td>
+                        <td class="d-none d-lg-table-cell text-justify"><pre>{{adv.Recommendations}}</pre></td>
+                        <td class="d-none d-lg-table-cell">
                           <a href="#" class="btn btn-success">View</a>
                         </td>
                       </tr>

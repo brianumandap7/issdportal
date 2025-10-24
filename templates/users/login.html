@@ -64,40 +64,69 @@
       from { transform: translateY(-20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
+
+    /* --- Mobile View: Show only login --- */
+    @media (max-width: 768px) {
+      body {
+        background: #f1f1f1; /* optional neutral background */
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      /* Hide everything else */
+      .sign-up-container,
+      .overlay-container {
+        display: none !important;
+      }
+
+      .sign-in-container {
+        width: 100%;
+        max-width: 400px;
+        background-color: #ffffff;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      }
+
+      .sign-in-container img {
+        margin-bottom: 20px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container" id="container">
 
-    <!-- Sign Up -->
-<div class="form-container sign-up-container">
-  <form action="#">
-    <div class="text-center p-4">
-      <!-- CyberSecurity Section -->
-       <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
-           alt="CyberSecurity Icon" width="30" height="30" class="my-3">
-      <strong class="mt-3">CyberSecurity Response Management System</strong>
-      
-      <p>
-        A centralized platform for ticketing and monitoring cybersecurity incidents,
-        enabling efficient tracking, response, and reporting to strengthen the
-        security posture of your organization.
-      </p>
+    <!-- Sign Up (Hidden in mobile) -->
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <div class="text-center p-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+               alt="CyberSecurity Icon" width="30" height="30" class="my-3">
+          <strong class="mt-3">CyberSecurity Response Management System</strong>
+          <p>
+            A centralized platform for ticketing and monitoring cybersecurity incidents,
+            enabling efficient tracking, response, and reporting to strengthen the
+            security posture of your organization.
+          </p>
 
-      <hr class="my-4">
+          <hr class="my-4">
 
-      <!-- PNPKI Section -->
-       <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" 
-           alt="PNPKI Icon" width="30" height="30" class="my-3">
-      <strong class="mt-3">PNPKI Application System</strong>
-      
-      <p>
-        A secure gateway for managing PNPKI digital certificates, ensuring trusted transactions and authentication.
-      </p>
+          <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" 
+               alt="PNPKI Icon" width="30" height="30" class="my-3">
+          <strong class="mt-3">PNPKI Application System</strong>
+          <p>
+            A secure gateway for managing PNPKI digital certificates, ensuring trusted transactions and authentication.
+          </p>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-
 
     <!-- Sign In -->
     <div class="form-container sign-in-container">
@@ -118,7 +147,7 @@
       </form>
     </div>
 
-    <!-- Overlay Panels -->
+    <!-- Overlay Panels (Hidden in mobile) -->
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
@@ -162,7 +191,6 @@
     </div>
   </div>
 
-  <!-- start of js -->
   <script src="{% static 'basetemp/login_js.js' %}"></script>
 
   <!-- Modal JS Logic -->
@@ -189,6 +217,5 @@
       {% endif %}
     });
   </script>
-  <!-- end of js -->
 </body>
 </html>
