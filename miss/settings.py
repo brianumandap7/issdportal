@@ -202,4 +202,7 @@ EMAIL_HOST_USER = "your_email@gmail.com"
 EMAIL_HOST_PASSWORD = "your_app_password"  # Use App Password (not your Gmail password)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 """
+DATABASE_ROUTERS = ['miss.routers.AppRouter']
+
+
 

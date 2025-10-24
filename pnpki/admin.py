@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import UtilStatusName
+from pnpki.models import Application, Attachment
 # Register your models here.
 
-admin.site.register(UtilStatusName)
+admin.site.register(Application)
+admin.site.register(Attachment)
